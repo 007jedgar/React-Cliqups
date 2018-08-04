@@ -1,2 +1,2 @@
-export * from './genderStyle'
+export * from './generalStyles';
 export * from './formStyle';

@@ -6,7 +6,7 @@ import {
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
-import {  } from '../../stylesheet';
+import { generalStyles } from '../../stylesheet';
 import { AuthBtn } from '../buttons';
 import { NavBar, Spinner, } from '../common';
 var t = require('tcomb-form-native');

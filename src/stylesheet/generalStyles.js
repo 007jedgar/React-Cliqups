@@ -6,7 +6,7 @@ import {
 } from 'react-native-size-matters'
 
 
-export const general = ScaledSheet.create({
+export const generalStyles = ScaledSheet.create({
   container: {
     flex: 1,
     marginTop: '20@ms',
