@@ -6,7 +6,7 @@ import reducers from './reducers';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import Router from './Router';
-// import { VPStatusBar } from './components/containers';
+import {VPStatusBar} from './components/containers';
 
 export default class App extends Component {
   render() {
@@ -26,6 +26,7 @@ export default class App extends Component {
     return (
         <Provider store={store}>
           <View style={{flex: 1}}>
+            <VPStatusBar backgroundColor="black" barStyle="light-content"/>
             <Router />
           </View>
         </Provider>

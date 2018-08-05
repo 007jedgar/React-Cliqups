@@ -81,7 +81,6 @@ const styles = ScaledSheet.create({
     position: 'absolute',
     height: '660@vs',
     width: '350@s',
-    // flex: 1,
   },
   footerContainer: {
     // justifyContent: 'flex-end',

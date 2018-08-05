@@ -86,7 +86,7 @@ const styles = ScaledSheet.create({
     shadowOffset: {width: 3, height: 3},
     shadowColor: '#393939',
     shadowOpacity: .3,
-    marginBottom: '4@vs',
+    // marginBottom: '4@vs',
     flexDirection: 'row',
     padding: '7@ms',
     paddingLeft: '4@ms',
