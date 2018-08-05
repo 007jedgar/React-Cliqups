@@ -3,12 +3,13 @@ import {
   View,
   Text,
   Image,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
-import { Spinner, } from '../common';
+import { Spinner, FootInput, } from '../common';
 import { FooterBtn } from '../buttons';
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
@@ -18,14 +19,42 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 
 class Welcome extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      continuable: false,
+    }
+  }
+
+  onChangeText(text) {
+    if (text.length > 8) {
+      this.setState({ continuable: true })
+    } else {
+      this.setState({ continuable: false })
+    }
+  }
+
+  onContinue() {
+    //onChangeText={(text) => this.onChange(text)}
+  }
 
   renderFooters() {
     return (
-      <View style={styles.footerContainer}>
-        <FooterBtn style={{backgroundColor: '#E05B35'}} title="Enter Invite Code"/>
-        <FooterBtn style={{backgroundColor: 'dimgrey'}} title="New Account"/>
-        <FooterBtn style={{backgroundColor: '#000'}} title="Sign In"/>
-      </View>
+      <KeyboardAvoidingView keyboardVerticalOffset={verticalScale(20)} style={styles.footerContainer} behavior="padding">
+        <FootInput
+          onChangeText={this.onChangeText.bind(this)}
+          pressed={() => this.onContinue()}
+          continuable={this.state.continuable}
+          returnKeyType="done"
+          maxLength={10}
+          keyboardType="phone-pad"
+          style={{backgroundColor: '#E05B35'}}
+          placeholder="Enter Mobile Number"
+        >
+          <Text style={styles.continueStyle}>Continue</Text>
+        </FootInput>
+      </KeyboardAvoidingView>
     )
   }
 
@@ -53,6 +82,14 @@ const styles = ScaledSheet.create({
   footerContainer: {
     justifyContent: 'flex-end',
     flex: 1,
+  },
+  continueStyle: {
+    fontSize: '22@ms',
+    fontWeight: '800',
+    color: '#fff',
+    textAlign: 'right',
+    marginLeft: '10@ms',
+    // align
   },
 })
 
