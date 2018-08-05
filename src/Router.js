@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Router, Scene, Actions, Stack, Modal, } from 'react-native-router-flux';
 import { Text, View, Image } from 'react-native';
-import SignIn from './components/views/SignIn';
+import SignIn from './components/onboarding/SignIn';
+import InviteCode from './components/onboarding/InviteCode';
+import Name from './components/onboarding/Name';
+import Number from './components/onboarding/Number';
+import ProfilePic from './components/onboarding/ProfilePic';
+import School from './components/onboarding/School';
+import Welcome from './components/onboarding/Welcome';
 import {
-  scale,
-  verticalScale,
-  moderateScale,
-  ScaledSheet,
+  scale, verticalScale, moderateScale, ScaledSheet,
 } from 'react-native-size-matters';
 
 class RouterComponent extends Component {
@@ -29,7 +32,8 @@ class RouterComponent extends Component {
     return (
       <Router>
           <Stack key="root" hideNavBar initial>
-            <Scene key="signin" component={SignIn} initial hideNavBar />
+            <Scene key="welcome" component={Welcome} initial hideNavBar />
+            <Scene key="signin" component={SignIn}  hideNavBar />
           </Stack>
       </Router>
     );

@@ -12,7 +12,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 const FooterBtn = ({ title, onPress, style }) => {
   const { containerStyle, textStyle } = styles;
   return (
-    <TouchableOpacity onPress={onPress} style={[containerStyle, style]}>
+    <TouchableOpacity activeOpacity={.7} onPress={onPress} style={[containerStyle, style]}>
       <Text style={textStyle}>{title}</Text>
     </TouchableOpacity>
   )
@@ -21,16 +21,14 @@ const FooterBtn = ({ title, onPress, style }) => {
 const styles = ScaledSheet.create({
   containerStyle: {
     backgroundColor: '#0E4457',
-    flex: .13,
+    flex: .1,
     justifyContent: 'center',
   },
   textStyle: {
     fontSize: '26@ms',
-    fontFamily: 'AvenirNext-Medium',
-    alignSelf: 'center',
+    fontFamily: 'Futura-Medium',
     color: '#fff',
     marginLeft: '30@s',
-    marginRight: '30@s',
   },
 });
 

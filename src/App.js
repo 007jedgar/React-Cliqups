@@ -10,16 +10,15 @@ import Router from './Router';
 
 export default class App extends Component {
   render() {
-    // var config = {
-    //   apiKey: "AIzaSyDLr6LEVLsEqroFTkqC1i7K0tnySIbaujQ",
-    //   authDomain: "evidence-f6902.firebaseapp.com",
-    //   databaseURL: "https://evidence-f6902.firebaseio.com",
-    //   projectId: "evidence-f6902",
-    //   storageBucket: "",
-    //   messagingSenderId: "920313805971"
-    // };
-    //
-    // firebase.initializeApp(config);
+    var config = {
+      apiKey: "AIzaSyA2x_lWl51uawAuIHrVWGFtYceIzw6DOvQ",
+      authDomain: "cliqups-3c8c1.firebaseapp.com",
+      databaseURL: "https://cliqups-3c8c1.firebaseio.com",
+      projectId: "cliqups-3c8c1",
+      storageBucket: "",
+      messagingSenderId: "367061293141"
+    };
+    firebase.initializeApp(config);
 
 
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

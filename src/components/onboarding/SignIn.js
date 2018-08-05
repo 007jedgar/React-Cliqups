@@ -6,9 +6,7 @@ import {
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
-import { generalStyles } from '../../stylesheet';
-import { AuthBtn } from '../buttons';
-import { NavBar, Spinner, } from '../common';
+import { generalStyles, formStyle } from '../../stylesheet';
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
 var _ = require('lodash');
@@ -16,38 +14,6 @@ import { Actions } from 'react-native-router-flux';
 import { loginUser } from '../../actions';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
-
-// FORM STYLING
-const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
-//Textinput styling
-stylesheet.textbox.normal.borderWidth = 0;
-stylesheet.textbox.error.borderWidth = 0;
-stylesheet.textbox.normal.marginBottom = 0;
-stylesheet.textbox.error.marginBottom = 0;
-stylesheet.textbox.normal.marginBottom = moderateScale(5);
-stylesheet.textbox.error.marginBottom = moderateScale(5);
-
-stylesheet.textbox.normal.fontSize = moderateScale(23);
-stylesheet.textbox.error.fontSize = moderateScale(23);
-stylesheet.textbox.normal.color = '#fff';
-stylesheet.textbox.error.color = '#fff';
-
-//Entry label styling
-stylesheet.controlLabel.normal.color = '#fff';
-stylesheet.controlLabel.error.color = 'orange';
-stylesheet.controlLabel.normal.marginLeft = moderateScale(5);
-stylesheet.controlLabel.error.marginLeft = moderateScale(5);
-
-//Outside textbox view styling
-stylesheet.textboxView.normal.borderWidth = 0;
-stylesheet.textboxView.error.borderWidth = 0;
-stylesheet.textboxView.normal.borderRadius = 0;
-stylesheet.textboxView.error.borderRadius = 0;
-stylesheet.textboxView.normal.borderBottomWidth = moderateScale(4);
-stylesheet.textboxView.error.borderBottomWidth = moderateScale(4);
-
-stylesheet.textboxView.normal.borderColor = '#fff';
-stylesheet.textboxView.error.borderColor = '#fff';
 
 var User = t.struct({
   email: t.String,
@@ -131,9 +97,9 @@ class SignIn extends Component {
 
   render() {
     return (
-      <View style={general.container}>
+      <View style={generalStyles.container}>
 
-
+        <Text>Hello Signin</Text>
       </View>
     )
   }
