@@ -42,4 +42,4 @@ const styles = ScaledSheet.create({
   },
 })
 
-export  {VPStatusBar};
+export default VPStatusBar;

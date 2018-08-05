@@ -39,7 +39,7 @@ class FootInput extends Component {
   }
 
   render() {
-    const { label, value, onChangeText, placeholder, secureTextEntry, style, keyboardType, returnKeyType, maxLength, onChange } =this.props;
+    const { label, value, onChangeText, placeholder, secureTextEntry, style, keyboardType, keyboardAppearance, returnKeyType, maxLength, onChange } =this.props;
     const { inputStyle, labelStyle, containerStyle } = styles;
 
     return (
@@ -57,6 +57,7 @@ class FootInput extends Component {
             keyboardType={keyboardType}
             returnKeyType={returnKeyType}
             maxLength={maxLength}
+            keyboardAppearance={keyboardAppearance}
           />
           {this.renderContinue()}
         </View>
@@ -85,6 +86,7 @@ const styles = ScaledSheet.create({
     backgroundColor: '#0E4457',
     height: '70@vs',
     paddingLeft: '20@ms',
+    justifyContent: 'space-between',
   }
 })
 

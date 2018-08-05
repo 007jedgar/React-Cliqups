@@ -8,6 +8,8 @@ import Number from './components/onboarding/Number';
 import ProfilePic from './components/onboarding/ProfilePic';
 import School from './components/onboarding/School';
 import Welcome from './components/onboarding/Welcome';
+import Terms from './components/onboarding/Terms';
+
 import {
   scale, verticalScale, moderateScale, ScaledSheet,
 } from 'react-native-size-matters';
@@ -34,6 +36,8 @@ class RouterComponent extends Component {
           <Stack key="root" hideNavBar initial>
             <Scene key="welcome" component={Welcome} initial hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
+            <Scene key="terms" component={Terms}  hideNavBar />
+            <Scene key="name" component={Name}  hideNavBar />
           </Stack>
       </Router>
     );

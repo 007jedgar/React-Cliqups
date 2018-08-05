@@ -17,6 +17,7 @@ var _ = require('lodash');
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import VPStatusBar from './VPStatusBar';
 
 class Welcome extends Component {
   constructor(props) {
@@ -36,12 +37,12 @@ class Welcome extends Component {
   }
 
   onContinue() {
-    //onChangeText={(text) => this.onChange(text)}
+    Actions.terms()
   }
 
   renderFooters() {
     return (
-      <KeyboardAvoidingView keyboardVerticalOffset={verticalScale(20)} style={styles.footerContainer} behavior="padding">
+      <KeyboardAvoidingView keyboardVerticalOffset={verticalScale(0)} style={styles.footerContainer} behavior="padding">
         <FootInput
           onChangeText={this.onChangeText.bind(this)}
           pressed={() => this.onContinue()}
@@ -51,6 +52,7 @@ class Welcome extends Component {
           keyboardType="phone-pad"
           style={{backgroundColor: '#E05B35'}}
           placeholder="Enter Mobile Number"
+          keyboardAppearance="dark"
         >
           <Text style={styles.continueStyle}>Continue</Text>
         </FootInput>
@@ -60,7 +62,8 @@ class Welcome extends Component {
 
   render() {
     return (
-      <View style={generalStyles.container}>
+      <View style={[generalStyles.container, {justifyContent: 'space-between'}]}>
+        <VPStatusBar backgroundColor="#000" barStyle="light-content"/>
         <Image
           source={(require('../../../assets/images/_splash.png'))}
           style={styles.img}
@@ -78,18 +81,19 @@ const styles = ScaledSheet.create({
     position: 'absolute',
     height: '660@vs',
     width: '350@s',
+    // flex: 1,
   },
   footerContainer: {
-    justifyContent: 'flex-end',
-    flex: 1,
+    // justifyContent: 'flex-end',
+    // backgroundColor: 'black',
+    // alignContent: 'flex-end',
   },
   continueStyle: {
     fontSize: '22@ms',
     fontWeight: '800',
     color: '#fff',
     textAlign: 'right',
-    marginLeft: '10@ms',
-    // align
+    marginRight: '10@ms',
   },
 })
 
