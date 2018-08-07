@@ -39,7 +39,7 @@ class FootInput extends Component {
   }
 
   render() {
-    const { label, value, onChangeText, placeholder, secureTextEntry, style, keyboardType, keyboardAppearance, returnKeyType, maxLength, onChange } =this.props;
+    const { label, value, onChangeText, placeholder, secureTextEntry, style, keyboardType, keyboardAppearance, returnKeyType, onFocus, maxLength, onChange, onSubmitEditing } =this.props;
     const { inputStyle, labelStyle, containerStyle } = styles;
 
     return (
@@ -58,6 +58,8 @@ class FootInput extends Component {
             returnKeyType={returnKeyType}
             maxLength={maxLength}
             keyboardAppearance={keyboardAppearance}
+            onSubmitEditing={onSubmitEditing}
+            onFocus={onFocus}
           />
           {this.renderContinue()}
         </View>
