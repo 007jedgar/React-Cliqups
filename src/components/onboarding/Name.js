@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
+  LayoutAnimation,
+  Picker,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -24,6 +26,7 @@ import firebase from 'firebase';
 import VPStatusBar from './VPStatusBar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 
 
 class Name extends Component {
@@ -38,10 +41,43 @@ class Name extends Component {
       showBirth: false,
       showgradYear: false,
       selectedSchool: {},
-      selectedGradYear: '',
+      selectedGradYear: 'GRAD YEAR',
       selectedBith: '',
     }
   }
+  animateForm() {
+   const createPropery = {
+     type: 'spring',
+     springDamping: 0.5,
+     property: 'opacity',
+   }
+
+   const updatePropery = {
+     type: 'spring',
+     springDamping: 0.5,
+     property: 'opacity',
+   }
+
+   const deletePropery = {
+     type: 'spring',
+     springDamping: 0.5,
+     property: 'opacity',
+   }
+
+   const animationConfig = {
+     duration: 500,
+     create: createPropery,
+     update: updatePropery,
+     delete: deletePropery,
+   };
+
+   LayoutAnimation.configureNext(animationConfig);
+ }
+
+ componentWillUpdate() {
+   // this.animateForm()
+   LayoutAnimation.spring()
+ }
 
   alertSchool() {
     Alert.alert("Please confirm you are at least 14 years of age.")
@@ -53,7 +89,8 @@ class Name extends Component {
 
   _handleGradPicker = (date) => {
     console.log('A date has been picked: ', date);
-    this.setState({ })
+    formattedDate = moment(date).format("MMM Do YY");
+    this.setState({ selectedGradYear: formattedDate })
     this._hideGradPicker();
   };
 
@@ -65,14 +102,6 @@ class Name extends Component {
     console.log('A date has been picked: ', date);
     this._hideBirthPicker();
   };
-
-  toggleBirthModal() {
-    this.setState({ showBirthModal: !this.state.showBirthModal})
-  }
-
-  toggleBirth() {
-    this.setState({ showBirth: !this.state.showBirth})
-  }
 
   toggleGradYearModal() {
     this.setState({ showGradYearModal: !this.state.showGradYearModal})
@@ -93,13 +122,17 @@ class Name extends Component {
   renderGradYearModal() {
     if (this.state.showGradYearModal) {
       return (
-        <Text>Grad year modal</Text>
+        <Picker
+          itemStyle={styles.pickerText}
+          selectedValue={this.state.selectedGradYear}
+          onValueChange={(itemValue, itemIndex) => this.setState({selectedGradYear: itemValue, showGradYearModal: false,})}>
+          <Picker.Item label="2019" value="Senior" />
+          <Picker.Item label="2020" value="Junior" />
+          <Picker.Item label="2021" value="Sophomore" />
+          <Picker.Item label="2022" value="Senior" />
+        </Picker>
       )
     }
-  }
-
-  renderBirthModal() {
-
   }
 
   renderNav() {
@@ -131,7 +164,10 @@ class Name extends Component {
           placeholder="YOUR SCHOOL"
           value={this.state.selectedSchool.school}
           keyboardAppearance="dark"
-          onFocus={() => this.setState({ showSchoolList: true })}
+          onFocus={() => {
+            this.setState({ showSchoolList: true })
+            this.scroll.props.scrollToPosition(0, 200)
+          }}
         />
       )
     }
@@ -164,18 +200,8 @@ class Name extends Component {
   renderGradInput() {
     if (!_.isEmpty(this.state.selectedSchool)) {
       return (
-        <TouchableOpacity onPress={this._showGradPicker} style={styles.btnStyle}>
-          <Text style={styles.labelStyle}>GRAD YEAR</Text>
-        </TouchableOpacity>
-      )
-    }
-  }
-
-  renderBirthDateInput() {
-    if (this.state.showBirth) {
-      return (
-        <TouchableOpacity onPress={this.toggleBirth.bind(this)} style={styles.btnStyle}>
-          <Text style={styles.labelStyle}>BIRTH DATE</Text>
+        <TouchableOpacity onPress={() => this.setState({ showGradYearModal: true})} style={styles.btnStyle}>
+          <Text style={styles.labelStyle}>{this.state.selectedGradYear}</Text>
         </TouchableOpacity>
       )
     }
@@ -200,11 +226,29 @@ class Name extends Component {
     }
   }
 
+  _scrollToInput (reactNode: any) {
+    // Add a 'scroll' ref to your ScrollView
+    this.scroll.scrollToFocusedInput(reactNode)
+  }
+
+  renderContinue() {
+    if (this.state.selectedGradYear != 'GRAD YEAR') {
+      return (
+        <TouchableOpacity style={styles.btnStyle}>
+          <Text style={styles.labelStyle}>CONTINUE</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
+
   render() {
     return (
       <View style={generalStyles.darkContainer}>
         {this.renderNav()}
-          <KeyboardAwareScrollView style={styles.container}>
+          <KeyboardAwareScrollView
+            style={styles.container}
+            innerRef={ref => {this.scroll = ref}}
+          >
             <View>
               <Image
                source={require('../../../assets/images/unnamed.png')}
@@ -217,12 +261,13 @@ class Name extends Component {
               {this.renderSchoolInput()}
               {this.renderSchools()}
               {this.renderGradInput()}
-              {this.renderBirthDateInput()}
+              {this.renderGradYearModal()}
+              {this.renderContinue()}
             </View>
           </KeyboardAwareScrollView>
 
           <DateTimePicker
-            isVisible={this.state.showGradYearModal}
+            isVisible={this.state.showBirthModal}
             onConfirm={this._handleGradPicker}
             onCancel={this._hideGradPicker}
           />
@@ -279,7 +324,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#E05B35',
     height: '40@ms',
-    width: '360@ms',
+    width: '370@ms',
   },
   labelStyle: {
     fontSize: '22@ms',
@@ -310,6 +355,15 @@ const styles = ScaledSheet.create({
     height: '200@ms',
     marginTop: '5@ms',
     marginBottom: '10@ms',
+  },
+  pickerText: {
+    fontSize: '22@ms',
+    fontWeight: '800',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  picker: {
+    backgroundColor: '#fff',
   }
 })
 
