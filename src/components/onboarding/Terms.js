@@ -41,6 +41,25 @@ class Terms extends Component {
     Actions.name()
   }
 
+  renderNav() {
+    return (
+      <View>
+        <NavBar
+          style={{backgroundColor: 'black'}}
+          titleViewStyle={{color: '#fff'}}
+        >
+          <TouchableOpacity onPress={() => Actions.popTo('welcome')}>
+           <Image
+            source={require('../../../assets/icons/backArrow.png')}
+            style={styles.navImg}
+           />
+         </TouchableOpacity>
+        </NavBar>
+        <VPStatusBar backgroundColor="black" barStyle="light-content"/>
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
