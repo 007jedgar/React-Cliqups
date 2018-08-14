@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -16,7 +17,7 @@ var Form = t.form.Form;
 var _ = require('lodash');
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 import VPStatusBar from './VPStatusBar';
 
 class Welcome extends Component {
@@ -25,10 +26,25 @@ class Welcome extends Component {
 
     this.state = {
       continuable: false,
+      mobileNum: '',
+      countryCode: '+1',
     }
   }
 
+  componentDidMount() {
+
+  }
+
+  chackAuth() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        Actions.terms({ user: user.toJSON()})
+      }
+    })
+  }
+
   onChangeText(text) {
+    this.setState({ mobileNum: text })
     if (text.length > 8) {
       this.setState({ continuable: true })
     } else {
@@ -37,7 +53,25 @@ class Welcome extends Component {
   }
 
   onContinue() {
-    Actions.terms()
+    // Actions.terms()
+    firebase.auth().signInWithPhoneNumber('+12259079616')
+    .then(confirmResult => {
+      confirmResult.confirm('123456')
+        .then(user => {
+          Actions.terms({ user: user })
+        })
+    }).catch(error => {
+      Alert.alert(error);
+    });
+  }
+
+  handlePhoneAuth() {
+    firebase.auth().signInWithPhoneNumber('12259079616')
+    .then(confirmResult => {
+
+    }).catch(error => {
+
+    });
   }
 
   renderFooters() {
@@ -62,10 +96,9 @@ class Welcome extends Component {
 
   render() {
     return (
-      <View style={[generalStyles.container, {justifyContent: 'space-between'}]}>
-        <VPStatusBar backgroundColor="#000" barStyle="light-content"/>
+      <View style={[generalStyles.container, {justifyContent: 'flex-end'}]}>
         <Image
-          source={(require('../../../assets/images/_splash.png'))}
+          source={(require('../../../assets/images/suhDude.png'))}
           style={styles.img}
           resizeMode="cover"
         />
@@ -77,19 +110,17 @@ class Welcome extends Component {
 
 const styles = ScaledSheet.create({
   img: {
-    opacity: .99,
+    opacity: .9,
     position: 'absolute',
     height: '660@vs',
     width: '350@s',
   },
   footerContainer: {
-    // justifyContent: 'flex-end',
-    // backgroundColor: 'black',
-    // alignContent: 'flex-end',
+
   },
   continueStyle: {
     fontSize: '22@ms',
-    fontWeight: '800',
+    fontWeight: '700',
     color: '#fff',
     textAlign: 'right',
     marginRight: '10@ms',

@@ -17,27 +17,17 @@ import {
 class RouterComponent extends Component {
   render() {
 
-    // const tabIcons = ({ focused, title }) => {
-    //   let image;
-    //   switch(title) {
-    //     case 'Cases':
-    //       image = !focused ? require('../assets/icons/greyCase.png') : require('../assets/icons/whiteCase.png');
-    //       break;
-    //     case 'Profile':
-    //       image = !focused ? require('../assets/icons/greyContact.png') : require('../assets/icons/whiteContact.png');
-    //       break;
-    //   };
-    //
-    //   return ( <Image source={image} style={styles.image}/> );
-    // }
-
     return (
       <Router>
           <Stack key="root" hideNavBar initial>
+
+
             <Scene key="welcome" component={Welcome} initial hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
+
+
           </Stack>
       </Router>
     );

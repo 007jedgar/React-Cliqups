@@ -14,5 +14,11 @@ export const generalStyles = ScaledSheet.create({
   darkContainer: {
     flex: 1,
     backgroundColor: '#000',
-  }
+  },
+  header: {
+    color: '#fff',
+    fontSize: '30@ms',
+    fontWeight: '800',
+    marginLeft: '10@ms',
+  },
 })
