@@ -21,7 +21,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		13EE6DA12121E53400E8206A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13EE6DA02121E53400E8206A /* GoogleService-Info.plist */; };
+		13EE6EF32124A1E900E8206A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13EE6EF22124A1E900E8206A /* GoogleService-Info.plist */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1A2E8225E5034B07A4D2F632 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3701FFE8F4094C228C084014 /* libRNFirebase.a */; };
@@ -349,8 +349,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CliqUps/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CliqUps/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CliqUps/main.m; sourceTree = "<group>"; };
-		13EE6DA02121E53400E8206A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13EE6E8B2123885B00E8206A /* CliqUps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = CliqUps.entitlements; path = CliqUps/CliqUps.entitlements; sourceTree = "<group>"; };
+		13EE6EF22124A1E900E8206A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		270A67E1D7FD0695DD6D384D /* Pods-CliqUps-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CliqUps-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CliqUps-tvOS/Pods-CliqUps-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CliqUps-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CliqUps-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -516,8 +516,8 @@
 		13B07FAE1A68108700A75B9A /* CliqUps */ = {
 			isa = PBXGroup;
 			children = (
+				13EE6EF22124A1E900E8206A /* GoogleService-Info.plist */,
 				13EE6E8B2123885B00E8206A /* CliqUps.entitlements */,
-				13EE6DA02121E53400E8206A /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1147,7 +1147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13EE6DA12121E53400E8206A /* GoogleService-Info.plist in Resources */,
+				13EE6EF32124A1E900E8206A /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
