@@ -14,8 +14,8 @@ import Settings from './components/settings/Settings';
 import Search from './components/search/Search';
 import NewAF from './components/new/NewAF';
 import MyStuff from './components/myStuff/MyStuff';
-import Top100 from './components/top/Top100'; 
-
+import Top100 from './components/top/Top100';
+import Slide from './components/slide/Slides';
 
 import {
   scale, verticalScale, moderateScale, ScaledSheet,
@@ -28,12 +28,11 @@ class RouterComponent extends Component {
       <Router>
           <Stack key="root" hideNavBar initial>
 
-
-            <Scene key="welcome" component={Welcome} initial hideNavBar />
+            <Scene key="welcome" component={Welcome}  hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
-
+            <Scene key="slides" component={Slide} initial hideNavBar />
 
           </Stack>
       </Router>

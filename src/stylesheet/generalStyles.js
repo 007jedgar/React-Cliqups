@@ -21,4 +21,10 @@ export const generalStyles = ScaledSheet.create({
     fontWeight: '800',
     marginLeft: '10@ms',
   },
+  backgroundImg: {
+    opacity: .9,
+    position: 'absolute',
+    height: '660@vs',
+    width: '350@s',
+  },
 })

@@ -24,6 +24,7 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
+    "rn-fetch-blob": "github:joltup/rn-fetch-blob#master",
     "tcomb-form-native": "^0.6.15"
   },
   "devDependencies": {
