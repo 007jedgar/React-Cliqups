@@ -32,10 +32,10 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-
+    this.checkAuth()
   }
 
-  chackAuth() {
+  checkAuth() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         Actions.terms({ user: user.toJSON()})

@@ -9,6 +9,13 @@ import ProfilePic from './components/onboarding/ProfilePic';
 import School from './components/onboarding/School';
 import Welcome from './components/onboarding/Welcome';
 import Terms from './components/onboarding/Terms';
+import Profile from './components/profile/Profile';
+import Settings from './components/settings/Settings';
+import Search from './components/search/Search';
+import NewAF from './components/new/NewAF';
+import MyStuff from './components/myStuff/MyStuff';
+import Top100 from './components/top/Top100'; 
+
 
 import {
   scale, verticalScale, moderateScale, ScaledSheet,
