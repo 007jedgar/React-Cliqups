@@ -28,11 +28,11 @@ class RouterComponent extends Component {
       <Router>
           <Stack key="root" hideNavBar initial>
 
-            <Scene key="welcome" component={Welcome}  hideNavBar />
+            <Scene key="welcome" component={Welcome} initial hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
-            <Scene key="slides" component={Slide} initial hideNavBar />
+            <Scene key="slides" component={Slide}  hideNavBar />
 
           </Stack>
       </Router>

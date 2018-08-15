@@ -32,7 +32,11 @@ class NavBtn extends Component {
       this.setState({ focused: nextProps.focused })
     }
     if (nextProps.swipedTo != this.state.swipedTo) {
-      this.setState({ focused: nextProps.swipedTo, swipedTo: nextProps.swipedTo })
+      if (nextProps.swipedTo) {
+        this.setState({ focused: nextProps.swipedTo, swipedTo: nextProps.swipedTo })
+      } else {
+        this.setState({ focused: nextProps.swipedTo, swipedTo: nextProps.swipedTo })
+      }
     }
   }
 

@@ -26,7 +26,7 @@ class Slides extends Component {
     this.state = {
       focused: false,
       slideIndex: 0,
-      p0: false,
+      p0: true,
       p1: false,
       p2: false,
     }
@@ -37,6 +37,7 @@ class Slides extends Component {
   }
 
   swiped(index) {
+    console.log('index', index);
     switch (index) {
       case 0:
         this.setState({ p0: true, p1: false, p2: false })
@@ -76,9 +77,11 @@ class Slides extends Component {
             />
             <Text style={styles.text}>Hello Profile</Text>
           </View>
+
           <View style={styles.slide2}>
             <Text style={styles.text}>Top100</Text>
           </View>
+
           <View style={styles.slide3}>
             <Text style={styles.text}>And Search</Text>
           </View>
