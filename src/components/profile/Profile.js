@@ -15,6 +15,7 @@ import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
+import { ProfileCamera} from '../camera';
 
 class Profile extends Component {
   render() {

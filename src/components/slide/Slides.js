@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Alert,
   ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -34,6 +35,10 @@ class Slides extends Component {
 
   pressed(num) {
     this.setState({ focused: false, slideIndex: num })
+  }
+
+  onSignout() {
+    firebase.auth().signOut()
   }
 
   swiped(index) {
@@ -78,9 +83,9 @@ class Slides extends Component {
             <Text style={styles.text}>Hello Profile</Text>
           </View>
 
-          <View style={styles.slide2}>
+          <TouchableOpacity onPress={() => this.onSignout()} style={styles.slide2}>
             <Text style={styles.text}>Top100</Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.slide3}>
             <Text style={styles.text}>And Search</Text>
