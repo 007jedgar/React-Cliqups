@@ -23,12 +23,20 @@ class ProfileCamera extends Component {
     this.state = {
       flashStatus: RNCamera.Constants.FlashMode.off,
       flash: false,
+      flashIcon: require('../../../assets/icons/flashOff.png'),
     }
   }
 
   toggleCamera() {
     this.props.closeCamera();
   }
+
+  toggleFlash() {
+    var icon = this.state.flash? require('../../../assets/icons/flashOn.png') : require('../../../assets/icons/flashOff.png');
+    var flashStatus = this.state.flash? RNCamera.Constants.FlashMode.on: RNCamera.Constants.FlashMode.off;
+    this.setState({ flashIcon: icon, flashStatus: flashStatus })
+  }
+
 
   takePicture = async function() {
     if (this.camera) {
@@ -63,16 +71,26 @@ class ProfileCamera extends Component {
         <View style={styles.container}>
           {this.renderNav()}
           <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
-            style={styles.preview}
-            type={RNCamera.Constants.Type.back}
-            flashMode={this.state.flashStatus}
-            permissionDialogTitle={'Permission to use camera'}
-            permissionDialogMessage={"We need your permission to use your phone's camera"}
+              ref={ref => {
+                this.camera = ref;
+              }}
+              style = {styles.preview}
+              type={RNCamera.Constants.Type.back}
+              flashMode={RNCamera.Constants.FlashMode.on}
+              permissionDialogTitle={'Permission to use camera'}
+              permissionDialogMessage={'We need your permission to use your camera phone'}
           />
           <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity onPress={() => {
+            this.setState({ flash: !this.state.flash })
+            setTimeout(() => this.toggleFlash(), 50)
+          }}>
+            <Image
+              source={this.state.flashIcon}
+              style={styles.flash}
+            />
+          </TouchableOpacity>
+
             <TouchableOpacity
               onPress={this.takePicture.bind(this)}
               style={styles.capture}
@@ -117,6 +135,12 @@ const styles = ScaledSheet.create({
     alignSelf: 'center',
     marginLeft: '73@s',
     marginBottom: '15@ms',
+  },
+  flash: {
+    width: '55@ms',
+    height: '55@ms',
+    alignSelf: 'center',
+    marginLeft: '20@s',
   },
 })
 

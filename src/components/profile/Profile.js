@@ -17,6 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 import { ProfileCamera } from '../camera';
+import { ImgUpload } from '../../util/Images';
 
 class Profile extends Component {
   constructor(props) {
@@ -26,6 +27,42 @@ class Profile extends Component {
       showProfile: true,
       showCamera: false,
     }
+  }
+
+  saveImg(data, caseId) {
+    var photoCount = this.state.photoCount + 1;
+    this.setState({ photoCount: photoCount });
+    var user = firebase.auth().currentUser;
+    var base64 = data.base64;
+    var height = data.height;
+    var width = data.width;
+    var uri = data.uri;
+
+    ImgUpload(uri, caseId, user, photoCount).then((url) => { // sends photo to fb storage and returns download url
+        console.log('download url:', url)
+        var _pictures = this.state._pictures
+        var picture = {
+          url: url,
+          num: photoCount,
+        }
+        _pictures.push(picture)
+        this.setState({ _pictures: _pictures })
+        var _caseId = caseId.toString()
+        try {
+          firebase.firestore().collection('cases').doc(_caseId)
+            .collection('pictures').add({
+              picture,
+            }).then(() => {
+              console.log('done');
+            }).catch((err) => {
+              console.log('error: ', err);
+            })
+        } catch(err) {
+          console.log('error saving downloadUrl')
+        }
+    }).catch((err) => {
+        console.log('error: ', err)
+      })
   }
 
   toggleCamera() {
@@ -40,6 +77,7 @@ class Profile extends Component {
       return (
         <ProfileCamera
           visible={true}
+          sendImg={(data, caseId) => this.saveImg(data, caseId)}
         />
       )
     }
