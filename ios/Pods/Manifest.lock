@@ -95,6 +95,16 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.1)
+  - React (0.56.0):
+    - React/Core (= 0.56.0)
+  - react-native-camera (1.1.4):
+    - React
+    - react-native-camera/RCT (= 1.1.4)
+    - react-native-camera/RN (= 1.1.4)
+  - react-native-camera/RCT (1.1.4):
+    - React
+  - react-native-camera/RN (1.1.4):
+    - React
   - React/Core (0.56.0):
     - yoga (= 0.56.0.React)
   - React/CxxBridge (0.56.0):
@@ -141,6 +151,7 @@ DEPENDENCIES:
   - Firebase/Storage (~> 5.3.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -183,6 +194,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
   yoga:
@@ -213,9 +226,10 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-camera: ab22041dcf0403d88f2ae4b9ea3ed2644e680423
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: d819a581fdb4881dd2dc8e4000cd0960d96daf64
+PODFILE CHECKSUM: 24083657e943b05d1b7c316c5079b4c229fc6cb0
 
 COCOAPODS: 1.5.2

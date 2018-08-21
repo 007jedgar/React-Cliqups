@@ -33,6 +33,7 @@ class RouterComponent extends Component {
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
             <Scene key="slides" component={Slide}  hideNavBar />
+            <Scene key="profile" component={Profile}  hideNavBar />
 
           </Stack>
       </Router>

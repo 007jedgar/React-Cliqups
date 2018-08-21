@@ -81,12 +81,11 @@ class NavBar extends Component {
 
 const styles = ScaledSheet.create({
   container: {
-    height: '60@vs',
+    height: '55@vs',
     backgroundColor: '#fff',
     shadowOffset: {width: 3, height: 3},
     shadowColor: '#393939',
     shadowOpacity: .3,
-    // marginBottom: '4@vs',
     flexDirection: 'row',
     padding: '7@ms',
     paddingLeft: '4@ms',

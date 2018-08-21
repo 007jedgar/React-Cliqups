@@ -38,7 +38,7 @@ class Welcome extends Component {
   checkAuth() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        Actions.slides({ user: user.toJSON()})
+        Actions.profile({ user: user})
       }
     })
   }
@@ -58,7 +58,7 @@ class Welcome extends Component {
     .then(confirmResult => {
       confirmResult.confirm('123456')
         .then(user => {
-          Actions.slides({ user: user })
+          Actions.profile({ user: user })
         })
     }).catch(error => {
       Alert.alert(error);

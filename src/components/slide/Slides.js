@@ -57,6 +57,31 @@ class Slides extends Component {
     }
   }
 
+  renderNav() {
+    return (
+      <Swiper
+        style={styles.wrapper2}
+        loop={false}
+        showsPagination={false}
+        showsButtons={false}
+        index={this.state.slideIndex}
+        onIndexChanged={(index) => this.swiped(index)}
+      >
+        <TouchableOpacity>
+          <Text style={styles.text}>Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.text}>Top 100</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.text}>Search</Text>
+        </TouchableOpacity>
+      </Swiper>
+    )
+  }
+
   render() {
     return (
       <View style={generalStyles.darkContainer}>
@@ -99,30 +124,36 @@ class Slides extends Component {
 
 const styles = ScaledSheet.create({
   wrapper: {
-},
-slide1: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#9DD6EB',
-},
-slide2: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#97CAE5',
-},
-slide3: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#92BBD9',
-},
-text: {
-  color: '#fff',
-  fontSize: '30@ms',
-  fontWeight: 'bold',
-},
+    // flex: 1,
+  },
+  wrapper2: {
+    height: '60@ms',
+    // width: '200@ms',
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
+  },
+  text: {
+    color: '#fff',
+    fontSize: '30@ms',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 })
 
 export default Slides;

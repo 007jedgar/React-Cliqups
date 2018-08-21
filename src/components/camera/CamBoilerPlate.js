@@ -6,7 +6,6 @@ import {
   KeyboardAvoidingView,
   Alert,
   Modal,
-  TouchableOpacity,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -17,14 +16,6 @@ import firebase from 'react-native-firebase';
 import { RNCamera, FaceDetector } from 'react-native-camera';
 
 class ProfileCamera extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      flashStatus: RNCamera.Constants.FlashMode.off,
-      flash: false,
-    }
-  }
 
   toggleCamera() {
     this.props.closeCamera();
@@ -58,7 +49,7 @@ class ProfileCamera extends Component {
   }
 
   renderCamera() {
-    if (this.props.visible) {
+    if (this.state.showCamera) {
       return (
         <View style={styles.container}>
           {this.renderNav()}
@@ -69,7 +60,7 @@ class ProfileCamera extends Component {
             style={styles.preview}
             type={RNCamera.Constants.Type.back}
             flashMode={this.state.flashStatus}
-            permissionDialogTitle={'Permission to use camera'}
+            permissionDialogTitle={'Camera Permission'}
             permissionDialogMessage={"We need your permission to use your phone's camera"}
           />
           <View style={{flexDirection: 'row'}}>
@@ -93,6 +84,7 @@ class ProfileCamera extends Component {
         animationType="slide"
         transparent={false}
       >
+      {this.renderNav()}
       {this.renderCamera()}
       </Modal>
     )
@@ -120,4 +112,4 @@ const styles = ScaledSheet.create({
   },
 })
 
-export { ProfileCamera };
+export {ProfileCamera};
