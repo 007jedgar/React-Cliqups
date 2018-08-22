@@ -82,6 +82,12 @@ class Profile extends Component {
       )
     }
   }
+  //testing purposes  only
+  signOut() {
+    firebase.auth().signOut().then(() => {
+      Actions.welcome()
+    })
+  }
 
   renderProfile() {
     if (this.state.showProfile) {
@@ -90,7 +96,9 @@ class Profile extends Component {
           <NavBar
             title="Profile"
           />
+          <TouchableOpacity onPress={()=> this.signOut()}>
           <Text style={generalStyles.header}>Profile Page</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.toggleCamera()}>
             <Text style={generalStyles.header}>Show camera</Text>
           </TouchableOpacity>
