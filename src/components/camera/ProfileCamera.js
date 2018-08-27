@@ -15,6 +15,7 @@ import { generalStyles, formStyle } from '../../stylesheet';
 import { Spinner, FootInput, NavBar } from '../common';
 import firebase from 'react-native-firebase';
 import { RNCamera, FaceDetector } from 'react-native-camera';
+import VPStatusBar from './VPStatusBar';
 
 class ProfileCamera extends Component {
   constructor(props) {
@@ -40,10 +41,10 @@ class ProfileCamera extends Component {
 
   takePicture = async function() {
     if (this.camera) {
-      const options = { quality: 0.5, base64: true };
+      const options = { quality: 0.5, base64: true }
       const data = await this.camera.takePictureAsync(options)
       const caseId = this.state.caseNum
-      this.props.sendImg(data, caseId);
+      this.props.sendImg(data, caseId)
     }
   }
 
@@ -69,7 +70,13 @@ class ProfileCamera extends Component {
     if (this.props.visible) {
       return (
         <View style={styles.container}>
-          {this.renderNav()}
+          <VPStatusBar backgroundColor="black" barStyle="light-content"/>
+          <TouchableOpacity onPress={() => this.toggleCamera()}>
+            <Image
+              source={require('../../../assets/icons/x.png')}
+              style={{height: moderateScale(40), width: moderateScale(40)}}
+            />
+          </TouchableOpacity>
           <RNCamera
               ref={ref => {
                 this.camera = ref;
@@ -120,7 +127,8 @@ class ProfileCamera extends Component {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    // marginTop: '20@ms',
   },
   preview: {
     flex: 1,

@@ -33,6 +33,7 @@ class Slides extends Component {
     }
   }
 
+
   pressed(num) {
     this.setState({ focused: false, slideIndex: num })
   }
@@ -86,11 +87,12 @@ class Slides extends Component {
     return (
       <View style={generalStyles.darkContainer}>
 
-        <SlideNavBar >
+{/*        <SlideNavBar >
           <NavBtn swipedTo={this.state.p0} focused={this.state.focused} pressed={this.pressed.bind(this, 0)} title="Profile" />
           <NavBtn swipedTo={this.state.p1} focused={this.state.focused} pressed={this.pressed.bind(this, 1)} title="Top 100" />
           <NavBtn swipedTo={this.state.p2} focused={this.state.focused} pressed={this.pressed.bind(this, 2)} title="Search" />
-        </SlideNavBar>
+        </SlideNavBar>*/}
+        {this.renderNav()}
 
         <Swiper
           style={styles.wrapper}
@@ -124,7 +126,7 @@ class Slides extends Component {
 
 const styles = ScaledSheet.create({
   wrapper: {
-    // flex: 1,
+    flex: 1,
   },
   wrapper2: {
     height: '60@ms',

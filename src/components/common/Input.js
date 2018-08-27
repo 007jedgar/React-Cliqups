@@ -18,7 +18,7 @@ const { inputStyle, labelStyle, containerStyle } = styles;
       />
     </View>
   )
-};
+}
 
 const styles = StyleSheet.create({
   inputStyle: {
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     height: 40,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#A7BED3',
   }
 })
 

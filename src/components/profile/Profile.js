@@ -11,7 +11,7 @@ import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
-import { Spinner, FootInput, NavBar } from '../common';
+import { Spinner, FootInput, SearchNavBar } from '../common';
 import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -78,6 +78,7 @@ class Profile extends Component {
         <ProfileCamera
           visible={true}
           sendImg={(data, caseId) => this.saveImg(data, caseId)}
+          closeCamera={() => this.toggleCamera()}
         />
       )
     }
@@ -93,7 +94,7 @@ class Profile extends Component {
     if (this.state.showProfile) {
       return (
         <View style={generalStyles.darkContainer}>
-          <NavBar
+          <SearchNavBar
             title="Profile"
           />
           <TouchableOpacity onPress={()=> this.signOut()}>

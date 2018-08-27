@@ -81,7 +81,7 @@ class NavBar extends Component {
 
 const styles = ScaledSheet.create({
   container: {
-    height: '55@vs',
+    height: '45@vs',
     backgroundColor: '#fff',
     shadowOffset: {width: 3, height: 3},
     shadowColor: '#393939',
@@ -89,6 +89,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     padding: '7@ms',
     paddingLeft: '4@ms',
+    justifyContent: 'center',
   },
   leftBtnView: {
     justifyContent: 'center',
