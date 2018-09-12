@@ -24,16 +24,19 @@ import {
 class RouterComponent extends Component {
   render() {
     const tabIcons = ({ focused, title }) => {
-      // let image;
-      // switch(title) {
-      //   case 'Cases':
-      //     image = !focused ? require('../assets/icons/greyCase.png') : require('../assets/icons/whiteCase.png');
-      //     break;
-      //   case 'Profile':
-      //     image = !focused ? require('../assets/icons/greyContact.png') : require('../assets/icons/whiteContact.png');
-      //     break;
-      // };
-      // return ( <Image source={image} style={styles.image}/> );
+      let image;
+      switch(title) {
+        case 'Profile':
+          image = !focused ? require('../assets/icons/greyContact.png') : require('../assets/icons/whiteContact.png');
+          break;
+        case 'Search':
+          image = !focused ? require('../assets/icons/x.png') : require('../assets/icons/whiteX.png');
+          break;
+        case 'My Stuff':
+          image = !focused ? require('../assets/icons/emptyCamera.png') : require('../assets/icons/whiteCamera.png');
+          break;
+      };
+      return ( <Image source={image} style={styles.image}/> );
     }
     return (
       <Router>
@@ -44,7 +47,22 @@ class RouterComponent extends Component {
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
             <Scene key="slides" component={Slide}  hideNavBar />
-            <Scene key="profile" component={Profile}  hideNavBar />
+
+            <Scene key="cliqups" tabs showLabel={true} activeTintColor={'dimgrey'} labelStyle={styles.label} tabBarStyle={styles.tabs}>
+
+              <Scene key="myStuff" title="My Stuff" icon={tabIcons} >
+                <Scene key="myStuff" component={MyStuff}  hideNavBar />
+              </Scene>
+
+              <Scene key="profile" title="Profile" icon={tabIcons} >
+                <Scene key="profile" component={Profile} hideNavBar />
+                <Scene key="profilePic" component={ProfilePic} hideNavBar />
+              </Scene>
+
+              <Scene key="search" title="Search" icon={tabIcons} >
+                <Scene key="search" component={Search}  hideNavBar />
+              </Scene>
+            </Scene>
 
           </Stack>
       </Router>

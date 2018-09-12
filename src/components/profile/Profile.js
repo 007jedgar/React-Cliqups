@@ -6,12 +6,13 @@ import {
   KeyboardAvoidingView,
   Alert,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
-import { Spinner, FootInput, SearchNavBar } from '../common';
+import { Spinner, FootInput, NavBar } from '../common';
 import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -83,6 +84,7 @@ class Profile extends Component {
       )
     }
   }
+
   //testing purposes  only
   signOut() {
     firebase.auth().signOut().then(() => {
@@ -94,7 +96,7 @@ class Profile extends Component {
     if (this.state.showProfile) {
       return (
         <View style={generalStyles.darkContainer}>
-          <SearchNavBar
+          <NavBar
             title="Profile"
           />
           <TouchableOpacity onPress={()=> this.signOut()}>

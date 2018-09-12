@@ -6,6 +6,7 @@ import {
 export const generalStyles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#232323',
   },
   lightText: {
     color: '#fff',
@@ -26,5 +27,8 @@ export const generalStyles = ScaledSheet.create({
     position: 'absolute',
     height: '660@vs',
     width: '350@s',
+  },
+  formContainer: {
+    margin: '15@ms',
   },
 })
