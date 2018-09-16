@@ -28,6 +28,10 @@ export const FETCH_UPLOADS = 'fetch_uploads';
 export const FETCH_UPLOADS_SUCCESS = 'fetch_uploads_success';
 export const FETCH_UPLOADS_FAILURE = 'fetch_uploads_failure';
 
+export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_POSTS_SUCCESS = 'fetch_posts_success';
+export const FETCH_POSTS_FAILURE = 'fetch_posts_failure';
+
 export const SAVE_PROFILE_PIC = 'save_profile_pic';
 export const SAVE_PROFILE_PICE_SUCCESS = 'save_profile_pic_success';
 export const SAVE_PROFILE_PIC_FAILURE = 'save_profile_pic_failure';

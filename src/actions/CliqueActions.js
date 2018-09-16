@@ -32,6 +32,9 @@ import {
   COMMENT,
   COMMENT_SUCCESS,
   COMMENT_FAILURE,
+  FETCH_POSTS,
+  FETCH_POSTS_SUCCESS,
+  FETCH_POSTS_FAILURE,
 } from './types';
 import firebase from 'react-native-firebase';
 var _ = require('lodash')
@@ -277,10 +280,20 @@ export const queryClassmates = (typed) => {
       firebase.firestore().collection('users')
         .where("name", ">", typed)
           .get().then((querySnap) => {
+            if (querySnap.empty) {
+              const data = {
+                empty: true,
+                classmates: [],
+              }
+              dispatch({ type: QUERY_CLASSMATES_SUCCESS, payload: data })
+            }
             querySnap.forEach((doc) => {
-              classmate = doc.data()
-              classmates.push(classmate)
-              dispatch({ type: QUERY_CLASSMATES_SUCCESS, payload: classmates })
+              classmates.push(doc.data())
+              const data = {
+                empty: false,
+                classmates: classmates,
+              }
+              dispatch({ type: QUERY_CLASSMATES_SUCCESS, payload: data })
             })
           })
     } catch(err) {
@@ -306,6 +319,35 @@ export const comment = (replyData) => {
           })
     } catch(err) {
       dispatch({ type: COMMENT_FAILURE })
+    }
+  }
+}
+
+export const fetchPosts = () => {
+  return (dispatch) => {
+    var posts = []
+    try {
+      firebase.firestore().collection('cliqs').doc(cliqId)
+        .collection('replies').get().then((querySnap) => {
+          if (querySnap.empty) {
+            const data = {
+              posts: [],
+              empty: true,
+            }
+            dispatch({ type: FETCH_POSTS_SUCCESS, payload: data })
+          }
+
+          querySnap.forEach((doc) => {
+            posts.push(doc.data())
+            const data = {
+              posts: posts,
+              empty: false,
+            }
+            dispatch({ FETCH_POSTS_SUCCESS, payload: data })
+          })
+        })
+    } catch(err) {
+      dispatch({ type: FETCH_POSTS_FAILURE, payload: data })
     }
   }
 }

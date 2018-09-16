@@ -1,8 +1,40 @@
 import {
-  AUTO_COMPLETE,
-  ADDRESS_FAIL,
-  ADDRESS_SUCCESS,
-  CASES_FETCHED,
+  CREATE_POST,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAILURE,
+  CREATE_CLIQ,
+  CREATE_CLIQ_SUCCESS,
+  CREATE_CLIQ_FAILURE,
+  CREATE_PROFILE,
+  CREATE_PROFILE_SUCCESS,
+  CREATE_PROFILE_FAILURE,
+  FETCH_CLIQS,
+  FETCH_CLIQS_SUCCESS,
+  FETCH_CLIQS_FAILURE,
+  FETCH_UPLOADS,
+  FETCH_UPLOADS_SUCCESS,
+  FETCH_UPLOADS_FAILURE,
+  SAVE_PROFILE_PIC,
+  SAVE_PROFILE_PICE_SUCCESS,
+  SAVE_PROFILE_PIC_FAILURE,
+  QUERY_CLASSMATES,
+  QUERY_CLASSMATES_SUCCESS,
+  QUERY_CLASSMATES_FAILURE,
+  ADDING_TO_CLIQ,
+  ADDED_TO_CLIQ_SUCCESS,
+  ADDED_TO_CLIQ_FAILED,
+  ADDING_TO_USER,
+  ADDED_TO_USER_SUCCESS,
+  ADDED_TO_USER_FAILURE,
+  SAVE_PROFILE,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_FAILURE,
+  COMMENT,
+  COMMENT_SUCCESS,
+  COMMENT_FAILURE,
+  FETCH_POSTS,
+  FETCH_POSTS_SUCCESS,
+  FETCH_POSTS_FAILURE,
  } from '../actions/types';
 
 const INITAL_STATE = {
@@ -10,19 +42,17 @@ const INITAL_STATE = {
   loading: false,
   error: '',
   cases: [],
+  data: {
+    empty: false,
+    cliqs: [],
+    posts: [],
+  }
 };
 
 export default (state = INITAL_STATE, action) => {
   switch (action.type) {
-    case AUTO_COMPLETE:
+    case CREATE_POST:
       return { ...state, loading: true }
-    case ADDRESS_SUCCESS:
-      console.log('location reducer', action.payload);
-      return { ...state, loading: false, location: action.payload}
-    case ADDRESS_FAIL:
-      return { ...state, loading: false, error: 'Make sure your location services are enabled' }
-    case CASES_FETCHED:
-      return { ...state, cases: action.payload, loading: false, }
     default:
       return state;
   }

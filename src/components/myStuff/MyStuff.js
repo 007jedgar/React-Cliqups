@@ -93,6 +93,7 @@ class MyStuff extends Component {
     } else if (showUploads && noUploads) {
       return (
         <View>
+          <Text>No Uploads</Text>
         </View>
       )
     }
@@ -171,6 +172,12 @@ const styles = ScaledSheet.create({
     flex: .5,
     justifyContent: 'center',
     backgroundColor: '#FE5F55',
+  },
+  dataHeader: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: '#fff',
+    fontSize: '25@ms',
   },
 })
 

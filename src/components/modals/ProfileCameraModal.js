@@ -12,6 +12,7 @@ import {
 import { NavBar, } from '../common';
 import { CachedImage } from 'react-native-cached-image';
 
+
 class ProfileCameraModal extends Component {
 
   xOut() {
