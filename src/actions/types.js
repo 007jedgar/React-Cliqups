@@ -1,14 +1,53 @@
+//Auth
 export const LOGIN_USER = 'login_user';
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAILED = 'login_user_failed';
+
 export const LOGOUT_USER = 'logout_user';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'login_user_fail';
-export const AUTO_COMPLETE = 'auto_complete';
-export const ADDRESS_SUCCESS = 'address_success';
-export const ADDRESS_FAIL = 'address_fail';
-export const CASE_SUBMITTED = 'case_submitted';
-export const CASE_ADDED = 'case_added';
-export const CASE_CANCELLED = 'case_cancelled';
-export const FETCHED_USER = 'fetched_user';
-export const CASES_FETCHED = 'cases_fetched';
+
+//Cliques
+export const CREATE_POST = 'create_post';
+export const CREATE_POST_SUCCESS = 'create_post_success';
+export const CREATE_POST_FAILURE = 'create_post_failure';
+
+export const CREATE_CLIQ = 'create_cliq';
+export const CREATE_CLIQ_SUCCESS = 'create_cliq_success';
+export const CREATE_CLIQ_FAILURE = 'create_cliq_failure';
+
+export const CREATE_PROFILE = 'create_profile';
+export const CREATE_PROFILE_SUCCESS = 'create_profile_success';
+export const CREATE_PROFILE_FAILURE = 'create_profile_failure';
+
+export const FETCH_CLIQS = 'fetch_cliqs';
+export const FETCH_CLIQS_SUCCESS = 'fetch_cliqs_success';
+export const FETCH_CLIQS_FAILURE = 'fetch_cliqs_failure';
+
+export const FETCH_UPLOADS = 'fetch_uploads';
+export const FETCH_UPLOADS_SUCCESS = 'fetch_uploads_success';
+export const FETCH_UPLOADS_FAILURE = 'fetch_uploads_failure';
+
+export const SAVE_PROFILE_PIC = 'save_profile_pic';
+export const SAVE_PROFILE_PICE_SUCCESS = 'save_profile_pic_success';
+export const SAVE_PROFILE_PIC_FAILURE = 'save_profile_pic_failure';
+
+export const SAVE_PROFILE = 'save_profile';
+export const SAVE_PROFILE_SUCCESS = 'save_profile_success';
+export const SAVE_PROFILE_FAILURE = 'save_profile_failure';
+
+export const QUERY_CLASSMATES = 'query_classmates';
+export const QUERY_CLASSMATES_SUCCESS = 'query_classmates_success';
+export const QUERY_CLASSMATES_FAILURE = 'query_classmates_failure';
+
+export const ADDING_TO_CLIQ = 'add_user_to_cliq';
+export const ADDED_TO_CLIQ_SUCCESS = 'add_user_to_cliq_success';
+export const ADDED_TO_CLIQ_FAILED = 'added_to_cliq_failed';
+
+export const ADDING_TO_USER = 'add_user_to_cliq';
+export const ADDED_TO_USER_SUCCESS = 'added_to_user_success';
+export const ADDED_TO_USER_FAILURE = 'added_to_user_failure';
+
+export const COMMENT = 'comment';
+export const COMMENT_SUCCESS = 'comment_success';
+export const COMMENT_FAILURE = 'comment_failure';

@@ -13,6 +13,7 @@ import {
 import { generalStyles, formStyle } from '../../stylesheet';
 import { Spinner, FootInput, } from '../common';
 import { FooterBtn } from '../buttons';
+import { ProfileCameraModal } from '../modals';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
@@ -23,17 +24,46 @@ class MyStuff extends Component {
 
     this.state = {
       showUploads: true,
-
+      showCLiqs: false,
+      noCliqs: false,
+      noUploads: false,
+      showPicModal: false,
     }
+  }
+
+  onCliqs() {
+    this.setState({
+      showUploads: false,
+      showCLiqs: true,
+    })
+  }
+
+  onUploads() {
+    this.setState({
+      showCLiqs: false,
+      showUploads: true,
+    })
+  }
+
+  editPic() {
+    this.setState({
+      showPicModal: !this.state.showPicModal,
+    })
   }
 
   renderProfilePic() {
     return (
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
         <Image
           source={{uri: imgUrl }}
           style={styles.img}
         />
+        <TouchableOpacity onPress={() => this.editPic()} style={styles.camImgContainer}>
+          <Image
+            source={require('../../../assets/icons/whiteCamera.png')}
+            style={styles.camImg}
+          />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -41,28 +71,51 @@ class MyStuff extends Component {
   renderTabs() {
     return (
       <View style={styles.tabs}>
-        <TouchableOpacity style={styles.tab}>
+        <TouchableOpacity style={styles.tab} onPress={() => this.onUploads()}>
           <Text style={styles.tabText}>Uploads</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.tab}>
+        <TouchableOpacity style={styles.tab} onPress={() => this.onCliqs()}>
           <Text style={styles.tabText}>Cliqs</Text>
         </TouchableOpacity>
       </View>
     )
   }
 
-  renderStuff() {
-    if (this.state.showUploads) {
+  renderUploads() {
+    const {showUploads, noUploads} = this.state
+    if (showUploads) {
+      return (
+        <View>
+          <Text>Uploads</Text>
+        </View>
+      )
+    } else if (showUploads && noUploads) {
       return (
         <View>
         </View>
       )
-    } else {
+    }
+  }
+
+  renderCliqs() {
+    const { showCLiqs, noCliqs } = this.state
+    if (noCliqs && showCLiqs) {
       return (
-        <View>
-        </View>
+        <TouchableOpacity>
+          <View>
+            <Text>Start a Clique</Text>
+            <Image
+              source={require('../../../assets/icons/x.png')}
+              style={styles.camImg}
+            />
+          </View>
+        </TouchableOpacity>
       )
+    } else if (showCLiqs) {
+      <View>
+        <Text>Cliqs</Text>
+      </View>
     }
   }
 
@@ -72,7 +125,13 @@ class MyStuff extends Component {
         <Text style={generalStyles.header}>My Stuff</Text>
         {this.renderProfilePic()}
         {this.renderTabs()}
-        {this.renderStuff()}
+        {this.renderUploads()}
+        {this.renderCliqs()}
+
+        <ProfileCameraModal
+          visible={this.state.showPicModal}
+          closeModal={() => this.editPic()}
+        />
       </View>
     )
   }
@@ -85,6 +144,18 @@ const styles = ScaledSheet.create({
     flex: 1,
     height: '200@ms',
     opacity: .9,
+  },
+  camImg: {
+    width: '40@ms',
+    height: '40@ms',
+    backgroundColor: '#898989',
+  },
+  camImgContainer: {
+    position: 'absolute',
+    width: '40@ms',
+    height: '40@ms',
+    backgroundColor: '#898989',
+    opacity: .8
   },
   tabs: {
     flexDirection: 'row',

@@ -10,15 +10,15 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <Firebase.h>
-#import "RNFirebaseLinks.h"
+//#import "RNFirebaseLinks.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSString *url = @"com.googleusercontent.apps.367061293141-dh8ro6114no9mojerlffub9cdbsq41kd";
+//  NSString *url = @"com.googleusercontent.apps.367061293141-dh8ro6114no9mojerlffub9cdbsq41kd";
   NSURL *jsCodeLocation;
-  [FIROptions defaultOptions].deepLinkURLScheme = url;
+//  [FIROptions defaultOptions].deepLinkURLScheme = url;
   [FIRApp configure];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
@@ -36,16 +36,16 @@
   return YES;
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-            options:(NSDictionary<NSString *, id> *)options {
-  return [[RNFirebaseLinks instance] application:application openURL:url options:options];
-}
+//- (BOOL)application:(UIApplication *)application
+//            openURL:(NSURL *)url
+//            options:(NSDictionary<NSString *, id> *)options {
+//  return [[RNFirebaseLinks instance] application:application openURL:url options:options];
+//}
 
-- (BOOL)application:(UIApplication *)application
-continueUserActivity:(NSUserActivity *)userActivity
- restorationHandler:(void (^)(NSArray *))restorationHandler {
-  return [[RNFirebaseLinks instance] application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
-}
+//- (BOOL)application:(UIApplication *)application
+//continueUserActivity:(NSUserActivity *)userActivity
+// restorationHandler:(void (^)(NSArray *))restorationHandler {
+//  return [[RNFirebaseLinks instance] application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
+//}
 
 @end
