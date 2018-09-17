@@ -16,7 +16,10 @@ import { SearchContactCard } from '../containers';
 import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
-import { queryClassmates } from '../../actions'
+import {
+  queryClassmates,
+  fetchUsers,
+} from '../../actions'
 import { connect } from 'react-redux';
 
 class Search extends Component {
@@ -26,13 +29,21 @@ class Search extends Component {
     this.state = {
       showResults: true,
       empty: false,
-      classmates: false,
+      classmates: [],
     }
   }
 
-  ComponentWillRecieveProps(nextProps) {
-    if (this.state.classmates) {
+  componentDidMount() {
+    this.props.fetchUsers()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.classmates) {
       this.setState({ classmates: nextProps.classmates })
+    }
+
+    if (nextProps.users) {
+      this.setState({ classmates: nextProps.users })
     }
 
     if (this.state.empty) {
@@ -46,9 +57,14 @@ class Search extends Component {
         <FlatList
           data={this.state.classmates}
           renderItem={({item}) =>
-            <SearchContactCard />
+            <SearchContactCard
+              name={item.name}
+              phone={item.phone}
+              school={item.school}
+              year={item.year}
+            />
           }
-          keyExtractor={ item => item.id.toString()}
+          keyExtractor={ item => item.phone.toString()}
           extraData={this.state.classmates}
         />
       )
@@ -63,7 +79,7 @@ class Search extends Component {
           typed={() => {}}
           box=""
         />
-        <Text style={generalStyles.header}>Seach </Text>
+        <Text style={generalStyles.header}> </Text>
 
         {this.renderClassmates()}
       </View>
@@ -73,11 +89,13 @@ class Search extends Component {
 
 const mapStateToProps = state => {
   const { classmates, empty } = state.clique
+  const { users } = state.auth
 
   return {
     classmates,
     empty,
+    users,
   }
 }
 
-export default Search;
+export default connect(mapStateToProps, {fetchUsers})(Search);

@@ -100,7 +100,7 @@ class Profile extends Component {
             title="Profile"
           />
           <TouchableOpacity onPress={()=> this.signOut()}>
-          <Text style={generalStyles.header}>Profile Page</Text>
+          <Text style={generalStyles.header}>Logut</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.toggleCamera()}>
             <Text style={generalStyles.header}>Show camera</Text>

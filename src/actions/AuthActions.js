@@ -7,8 +7,17 @@ import {
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_FAIL,
   FETCHED_USER,
+  CREATE_USER,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE,
+  QUERY_BY_PHONE,
+  PHONE_QUERY_SUCCESS,
+  PHONE_QUERY_FAILURE,
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
  } from './types';
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 //used in loginUser
 export const loginUser = ( email, password ) => {
@@ -82,6 +91,72 @@ export const fetchUser = () => {
       } catch(err) {
         console.log('error fethcing user', err)
       }
+    }
+  }
+}
+
+const searchUserByPhone = (phone) => {
+    try {
+      var users = []
+      firebase.firestore().collection('users').where("phone", "==", phone)
+        .get().then((querySnap) => {
+          if (querySnap.empty) {
+            return users;
+          }
+          querySnap.forEach((doc) => {
+            users.push(doc.data())
+            return users;
+          })
+        })
+    } catch(err) {
+      return null
+    }
+}
+
+export const createUser = (userInfo) => {
+  const { name, user, phone, school, } = userInfo
+  var foundUsers = searchUserByPhone(phone)
+  console.log('found Users: ', foundUsers)
+
+  // return (dispatch) => {
+  //   dispatch({ type: CREATE_USER })
+  //   try {
+  //     firebase.firestore().collection('users').doc(user.uid)
+  //       .set({
+  //         name: name,
+  //         phone: phone,
+  //         school: school,
+  //       }).then(() => {
+  //         dispatch({ type: CREATE_USER_SUCCESS })
+  //       })
+  //   } catch (err) {
+  //     dispatch({ type: CREATE_USER_FAILURE })
+  //   }
+  // }
+}
+
+export const fetchUsers = () => {
+  return (dispatch) => {
+    console.log('entered')
+
+    dispatch({ type: FETCH_USERS })
+    try {
+      var users = []
+      firebase.firestore().collection('users')
+        .onSnapshot((querySnap) => {
+          if (querySnap.empty) {
+            console.log('empty')
+            dispatch({ type: FETCH_USERS, payload: users })
+          }
+          querySnap.forEach((doc) => {
+            console.log('users', doc.data())
+            users.push(doc.data())
+            dispatch({ type: FETCH_USERS_SUCCESS, payload: users })
+          })
+        })
+    } catch(err) {
+      console.log('err', err)
+      dispatch({ type: FETCH_USERS_FAILURE, payload: users })
     }
   }
 }

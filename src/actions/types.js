@@ -7,6 +7,18 @@ export const LOGOUT_USER = 'logout_user';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'login_user_fail';
 
+export const CREATE_USER = 'create_user';
+export const CREATE_USER_SUCCESS = 'create_user_success';
+export const CREATE_USER_FAILURE = 'create_user_failure';
+
+export const QUERY_BY_PHONE = 'query_by_phone';
+export const PHONE_QUERY_SUCCESS = 'phone_query_success';
+export const PHONE_QUERY_FAILURE = 'phone_query_failure';
+
+export const FETCH_USERS = 'fetch_users';
+export const FETCH_USERS_SUCCESS = 'fetch_users_success';
+export const FETCH_USERS_FAILURE = 'fetch_users_failure';
+
 //Cliques
 export const CREATE_POST = 'create_post';
 export const CREATE_POST_SUCCESS = 'create_post_success';

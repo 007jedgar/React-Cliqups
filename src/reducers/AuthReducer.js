@@ -2,20 +2,17 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILED,
   LOGIN_USER,
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
  } from '../actions/types';
 
 const INITAL_STATE = {
-  name: '',
-  email: '',
   password: '',
-  confirmation: '',
   user: null,
   error: '',
   loading: false,
-  numOfLessons: 0,
-  price: '',
-  coach: {},
-  lesson: {},
+  users: [],
 };
 
 export default (state = INITAL_STATE, action) => {
@@ -27,6 +24,10 @@ export default (state = INITAL_STATE, action) => {
       return { ...state, ...INITAL_STATE, user: action.payload, };
     case LOGIN_USER_FAILED:
       return { ...state, error: 'Your Credentials Failed :(', password: '', loading: false }
+    case FETCH_USERS:
+      return { ...state, }
+    case FETCH_USERS_SUCCESS:
+      return { ...state, users: action.payload }
     default:
       return state;
   }
