@@ -29,7 +29,27 @@ var _ = require('lodash');
 var user = t.struct({
   name: t.String,
   phone: t.String,
+  gradYear: t.String,
 })
+
+var returning = t.struct({
+  phone: t.String,
+})
+
+var options1 = {
+  stylesheet: formStyle1,
+  fields: {
+    phone: {
+      label: 'Phone',
+      placeholder: '1231231234',
+      placeholderTextColor: '#A0BDBC',
+      keyboardAppearance: 'dark',
+      selectionColor: '#fff',
+      autoCapitalize: 'none',
+      keyboardType: 'phone-pad',
+    },
+  }
+}
 
 var options = {
   stylesheet: formStyle1,
@@ -50,6 +70,13 @@ var options = {
       autoCapitalize: 'none',
       keyboardType: 'phone-pad',
     },
+    gradYear: {
+      label: 'Grad Year',
+      placeholder: '2019',
+      placeholderTextColor: '#A0BDBC',
+      keyboardAppearance: 'dark',
+      selectionColor: '#fff',
+    }
   }
 }
 
@@ -64,10 +91,17 @@ class Welcome extends Component {
       user: {
         name: '',
         phone: '',
+        gradYear: '',
+      },
+      user1: {
+        phone: '',
       },
       showSchoolList: true,
       showSchool: true,
       selectedSchool: {},
+      authBtn: 'Sign up',
+      changeTo: 'Sign in',
+      authType: false,
     }
   }
 
@@ -93,28 +127,21 @@ class Welcome extends Component {
   }
 
   onContinue() {
-    // Actions.terms()
-    this.setState({ loading: true })
-    name = this.state.user.Name
-    firebase.auth().signInWithPhoneNumber(`+1${this.state.user.phone}`)
-    .then(confirmResult => {
-      confirmResult.confirm('123456')
-        .then(user => {
-          console.log('user: ', user.uid)
-          firebase.firestore().collection("users").doc(user.uid)
-            .set({ name: name }).then(() => {
-              this.setState({ loading: false })
-            }).catch(() => console.log('hello'))
-          Actions.profile({ user: user })
-        }).catch((err) => console.log('err', err))
-    }).catch(error => {
-      Alert.alert(error);
-      this.setState({ loading: false })
-    });
+    const userInfo = {
+      name: this.state.name,
+      phone: this.state.phone,
+      gradYear: this.state.gradYear,
+    }
+
+    this.props.createUser(userInfo)
   }
 
   onChangeValue(value) {
     this.setState({ user: value })
+  }
+
+  onChangeValue1(value) {
+    this.setState({ user1: value })
   }
 
   toggleSchoolList() {
@@ -123,6 +150,20 @@ class Welcome extends Component {
 
   toggleSchool() {
     this.setState({ showSchool: !this.state.showSchool})
+  }
+
+  toggleAuthType() {
+    var authBtn = this.state.authType? 'Sign up': 'Sign in';
+    var changeTo = this.state.authType? 'Sign in': 'Sign up';
+    this.setState({ authType: !this.state.authType, authBtn, changeTo})
+  }
+
+  renderChangeAuth() {
+    return (
+      <View>
+        <Text>{this.state.changeTo}</Text>
+      </View>
+    )
   }
 
   renderSchoolInput() {
@@ -179,31 +220,52 @@ class Welcome extends Component {
     } else {
       return (
         <View style={{ marginTop: moderateScale(20)}}>
-          <AuthBtn pressed={() => this.onContinue()} title="Sign in"/>
+          <AuthBtn pressed={() => this.onContinue()} title={this.state.authBtn}/>
         </View>
       )
     }
   }
 
-  renderForm() {
-    return (
-      <View style={generalStyles.formContainer}>
-        <Form
-          ref="form"
-          type={user}
-          options={options}
-          value={this.state.user}
-          onChange={(value) => this.onChangeValue(value)}
-        />
+  renderSignUp() {
+    if (!this.state.authType) {
+      return (
+        <View style={generalStyles.formContainer}>
+          <Form
+            ref="form"
+            type={user}
+            options={options}
+            value={this.state.user}
+            onChange={(value) => this.onChangeValue(value)}
+          />
 
-        <KeyboardAwareScrollView >
-          {this.renderSchoolInput()}
-          {this.renderSchools()}
+          <KeyboardAwareScrollView >
+            {this.renderSchoolInput()}
+            {this.renderSchools()}
+            {this.renderBtn()}
+          </KeyboardAwareScrollView>
+
+        </View>
+      )
+    }
+  }
+
+  renderSignin() {
+    if ( this.state.authType) {
+      return (
+        <View style={generalStyles.formContainer}>
+          <Form
+            ref="form"
+            type={returning}
+            options={options1}
+            value={this.state.user1}
+            onChange={(value) => this.onChangeValue1(value)}
+          />
+
           {this.renderBtn()}
-        </KeyboardAwareScrollView>
 
-      </View>
-    )
+        </View>
+      )
+    }
   }
 
   render() {
@@ -214,7 +276,8 @@ class Welcome extends Component {
           style={styles.img}
           resizeMode="cover"
         />
-        {this.renderForm()}
+        {this.renderSignUp()}
+        {this.renderSignin()}
       </View>
     )
   }

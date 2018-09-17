@@ -115,24 +115,39 @@ const searchUserByPhone = (phone) => {
 
 export const createUser = (userInfo) => {
   const { name, user, phone, school, } = userInfo
-  var foundUsers = searchUserByPhone(phone)
-  console.log('found Users: ', foundUsers)
+  // var foundUsers = searchUserByPhone(phone)
+  // console.log('found Users: ', foundUsers)
 
-  // return (dispatch) => {
-  //   dispatch({ type: CREATE_USER })
-  //   try {
-  //     firebase.firestore().collection('users').doc(user.uid)
-  //       .set({
-  //         name: name,
-  //         phone: phone,
-  //         school: school,
-  //       }).then(() => {
-  //         dispatch({ type: CREATE_USER_SUCCESS })
-  //       })
-  //   } catch (err) {
-  //     dispatch({ type: CREATE_USER_FAILURE })
-  //   }
-  // }
+  return (dispatch) => {
+    dispatch({ type: CREATE_USER })
+    try {
+      firebase.firestore().collection('users').get()
+        .then((querySnap) => {
+          if (querySnap.emtpy) {
+            addUser(dispatch, userInfo)
+          }
+          
+        })
+    } catch (err) {
+      dispatch({ type: CREATE_USER_FAILURE })
+    }
+  }
+}
+
+const addUser = (dispatch, userInfo) => {
+  const { name, user, phone, school, } = userInfo
+  try {
+    firebase.firestore().collection('users').doc(user.uid)
+      .set({
+        name: name,
+        phone: phone,
+        school: school,
+      }).then(() => {
+        dispatch({ type: CREATE_USER_SUCCESS })
+      })
+  } catch(err) {
+    dispatch({ type: CREATE_USER_FAILURE })
+  }
 }
 
 export const fetchUsers = () => {
