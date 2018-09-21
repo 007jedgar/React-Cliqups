@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Alert,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -14,6 +15,9 @@ import { generalStyles, formStyle, formStyle1 } from '../../stylesheet';
 import { Spinner, FootInput, } from '../common';
 import { SchoolCard } from '../containers';
 import { FooterBtn, AuthBtn } from '../buttons';
+import {
+  createUser,
+} from '../../actions';
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
 var _ = require('lodash');
@@ -100,13 +104,14 @@ class Welcome extends Component {
       showSchool: true,
       selectedSchool: {},
       authBtn: 'Sign up',
-      changeTo: 'Sign in',
+      changeTo: "I'm a returning user",
       authType: false,
     }
   }
 
   componentDidMount() {
     this.checkAuth()
+
   }
 
   checkAuth() {
@@ -127,12 +132,16 @@ class Welcome extends Component {
   }
 
   onContinue() {
-    const userInfo = {
-      name: this.state.name,
-      phone: this.state.phone,
-      gradYear: this.state.gradYear,
+    if (this.state.authType) {
+      const userInfo = { name: this.state.user1.phone }
+      this.props.createUser(userInfo)
     }
 
+    const userInfo = {
+      name: this.state.user.name,
+      phone: this.state.user.phone,
+      gradYear: this.state.user.gradYear,
+    }
     this.props.createUser(userInfo)
   }
 
@@ -154,15 +163,15 @@ class Welcome extends Component {
 
   toggleAuthType() {
     var authBtn = this.state.authType? 'Sign up': 'Sign in';
-    var changeTo = this.state.authType? 'Sign in': 'Sign up';
+    var changeTo = this.state.authType? "I'm a returning user": "...But I'm new";
     this.setState({ authType: !this.state.authType, authBtn, changeTo})
   }
 
   renderChangeAuth() {
     return (
-      <View>
-        <Text>{this.state.changeTo}</Text>
-      </View>
+      <TouchableOpacity style={styles.authChangeContainer} onPress={() => this.toggleAuthType()}>
+        <Text style={styles.authText}>{this.state.changeTo}</Text>
+      </TouchableOpacity>
     )
   }
 
@@ -276,6 +285,7 @@ class Welcome extends Component {
           style={styles.img}
           resizeMode="cover"
         />
+        {this.renderChangeAuth()}
         {this.renderSignUp()}
         {this.renderSignin()}
       </View>
@@ -314,7 +324,23 @@ const styles = ScaledSheet.create({
   imputStyle: {
     marginTop: '5@ms',
     marginBottom: '20@ms',
-  }
+  },
+  authChangeContainer: {
+    backgroundColor: 'dimgrey',
+  },
+  authText: {
+    alignSelf: 'center',
+    fontSize: '22@ms',
+    margin: '5@ms',
+  },
 })
 
-export default Welcome;
+const mapStateToProps = state => {
+  const { user } = state.auth
+
+  return {
+    user,
+  }
+}
+
+export default connect(mapStateToProps, {createUser})(Welcome);

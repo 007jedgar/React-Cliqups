@@ -6,17 +6,24 @@ import {
   KeyboardAvoidingView,
   Alert,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
 import { Spinner, FootInput, } from '../common';
+import {
+  CliqsCard
+} from '../containers';
 import { FooterBtn } from '../buttons';
 import { ProfileCameraModal } from '../modals';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
+import { ImgUpload } from '../../util/Images';
+import { ProfileCamera } from '../camera';
+
 
 class MyStuff extends Component {
   constructor(props) {
@@ -49,6 +56,41 @@ class MyStuff extends Component {
     this.setState({
       showPicModal: !this.state.showPicModal,
     })
+  }
+
+  saveImg(data, caseId) {
+    var photoCount = 1;
+    var user = firebase.auth().currentUser;
+    var base64 = data.base64;
+    var height = data.height;
+    var width = data.width;
+    var uri = data.uri;
+
+    ImgUpload(uri, caseId, user, photoCount).then((url) => { // sends photo to fb storage and returns download url
+        console.log('download url:', url)
+        var _pictures = this.state._pictures
+        var picture = {
+          url: url,
+          num: photoCount,
+        }
+        _pictures.push(picture)
+        this.setState({ _pictures: _pictures })
+        var _caseId = caseId.toString()
+        try {
+          firebase.firestore().collection('users').doc(user.uid)
+            .update({
+              profilePic: url,
+            }).then(() => {
+              console.log('done');
+            }).catch((err) => {
+              console.log('error: ', err);
+            })
+        } catch(err) {
+          console.log('error saving downloadUrl')
+        }
+    }).catch((err) => {
+        console.log('error: ', err)
+      })
   }
 
   renderProfilePic() {
@@ -84,16 +126,16 @@ class MyStuff extends Component {
 
   renderUploads() {
     const {showUploads, noUploads} = this.state
-    if (showUploads) {
+    if (showUploads && !noUploads) {
       return (
         <View>
-          <Text>Uploads</Text>
+          <Text style={generalStyles.lightText}>Uploads</Text>
         </View>
       )
     } else if (showUploads && noUploads) {
       return (
         <View>
-          <Text>No Uploads</Text>
+          <Text style={generalStyles.lightText}>No Uploads</Text>
         </View>
       )
     }
@@ -101,11 +143,20 @@ class MyStuff extends Component {
 
   renderCliqs() {
     const { showCLiqs, noCliqs } = this.state
-    if (noCliqs && showCLiqs) {
+    if (showCLiqs) {
+      return (
+        <View>
+          <Text style={generalStyles.lightText}>Cliqs</Text>
+          <ScrollView style={{height: moderateScale(500)}}>
+            <CliqsCard />
+          </ScrollView>
+        </View>
+      )
+    } else if (noCliqs && showCLiqs) {
       return (
         <TouchableOpacity>
           <View>
-            <Text>Start a Clique</Text>
+            <Text style={generalStyles.lightText}>Start a Clique</Text>
             <Image
               source={require('../../../assets/icons/x.png')}
               style={styles.camImg}
@@ -113,10 +164,18 @@ class MyStuff extends Component {
           </View>
         </TouchableOpacity>
       )
-    } else if (showCLiqs) {
-      <View>
-        <Text>Cliqs</Text>
-      </View>
+    }
+  }
+
+  renderCamera() {
+    if (this.state.showPicModal) {
+      return (
+        <ProfileCamera
+          visible={true}
+          sendImg={(data, caseId) => this.saveImg(data, caseId)}
+          closeCamera={() => this.editPic()}
+        />
+      )
     }
   }
 
@@ -126,13 +185,10 @@ class MyStuff extends Component {
         <Text style={generalStyles.header}>My Stuff</Text>
         {this.renderProfilePic()}
         {this.renderTabs()}
-        {this.renderUploads()}
         {this.renderCliqs()}
+        {this.renderUploads()}
 
-        <ProfileCameraModal
-          visible={this.state.showPicModal}
-          closeModal={() => this.editPic()}
-        />
+        {this.renderCamera()}
       </View>
     )
   }

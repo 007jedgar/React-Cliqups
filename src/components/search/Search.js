@@ -79,8 +79,6 @@ class Search extends Component {
           typed={() => {}}
           box=""
         />
-        <Text style={generalStyles.header}> </Text>
-
         {this.renderClassmates()}
       </View>
     )

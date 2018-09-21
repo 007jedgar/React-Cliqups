@@ -351,3 +351,10 @@ export const fetchPosts = () => {
     }
   }
 }
+
+export const FindSchools = () => {
+  return (dispatch) => {
+    //google query
+
+  }
+}

@@ -6,33 +6,30 @@ import {
   KeyboardAvoidingView,
   Alert,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
 
-class BoilerPlate extends Component {
+class CliqsCard extends Component {
   render() {
     const { children, position } = this.props;
     return (
-      <View style={styles.container}>
-        <ScrollView showsHorizontalScrollIndicator={false} style={styles.scrollview} horizontal>
-          {children}
-        </ScrollView>
-      </View>
+      <TouchableOpacity style={styles.container}>
+        <Text></Text>
+      </TouchableOpacity>
     )
   }
 }
 
 const styles = ScaledSheet.create({
   container: {
-    height: '50@ms',
-    backgroundColor: '#fff',
+    height: '130@ms',
+    borderWidth: '4@ms',
+    borderColor: 'green',
   },
-  scrollview: {
-    flex: 1,
-  }
 })
 
-export { BoilerPlate };
+export { CliqsCard };

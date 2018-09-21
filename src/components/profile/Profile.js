@@ -92,6 +92,10 @@ class Profile extends Component {
     })
   }
 
+  newCliq() {
+    Actions.newCliq()
+  }
+
   renderProfile() {
     if (this.state.showProfile) {
       return (
@@ -99,12 +103,19 @@ class Profile extends Component {
           <NavBar
             title="Profile"
           />
-          <TouchableOpacity onPress={()=> this.signOut()}>
-          <Text style={generalStyles.header}>Logut</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => this.toggleCamera()}>
             <Text style={generalStyles.header}>Show camera</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=> this.newCliq()}>
+            <Text style={generalStyles.header}>New Cliq</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=> this.signOut()}>
+            <Text style={generalStyles.header}>Logout</Text>
+          </TouchableOpacity>
+
         </View>
       )
     }

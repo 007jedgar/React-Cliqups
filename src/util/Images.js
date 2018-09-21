@@ -28,7 +28,7 @@ return new Promise((resolve, reject) => {
   const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
   let uploadBlob = null
 
-  const imageRef = firebase.storage().ref('casePics').child(this.caseId + '/' + this.photoCount)
+  const imageRef = firebase.storage().ref('profilePics').child(user.uid)
 
   fs.readFile(uploadUri, 'base64')
     .then((data) => { //build blob

@@ -114,19 +114,25 @@ const searchUserByPhone = (phone) => {
 }
 
 export const createUser = (userInfo) => {
-  const { name, user, phone, school, } = userInfo
-  // var foundUsers = searchUserByPhone(phone)
-  // console.log('found Users: ', foundUsers)
+  const { phone, } = userInfo
 
   return (dispatch) => {
     dispatch({ type: CREATE_USER })
     try {
-      firebase.firestore().collection('users').get()
+      firebase.firestore().collection('users')
+      .where("phone", "==", phone).get()
         .then((querySnap) => {
           if (querySnap.emtpy) {
             addUser(dispatch, userInfo)
           }
-          
+
+          querySnap.forEach((doc) => {
+            console.log('user', doc.data())
+            var id = doc.id
+            userInfo = doc.data()
+            login(userinfo, id)
+          })
+
         })
     } catch (err) {
       dispatch({ type: CREATE_USER_FAILURE })
@@ -137,16 +143,27 @@ export const createUser = (userInfo) => {
 const addUser = (dispatch, userInfo) => {
   const { name, user, phone, school, } = userInfo
   try {
-    firebase.firestore().collection('users').doc(user.uid)
-      .set({
-        name: name,
-        phone: phone,
-        school: school,
-      }).then(() => {
-        dispatch({ type: CREATE_USER_SUCCESS })
-      })
+    firebase.auth().signInAnonymously().then((user) => {
+      firebase.firestore().collection('users').doc(user.uid)
+        .set({
+          name: name,
+          phone: phone,
+          school: school,
+        }).then(() => {
+          dispatch({ type: CREATE_USER_SUCCESS })
+        })
+    })
   } catch(err) {
     dispatch({ type: CREATE_USER_FAILURE })
+  }
+}
+
+const login = (userInfo) => {
+  const { phone } = userInfo
+  return (dispatch) => {
+    // firebase.auth()
+    console.log('user', userInfo)
+
   }
 }
 

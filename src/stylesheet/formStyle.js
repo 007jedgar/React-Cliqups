@@ -49,7 +49,7 @@ formStyle1.textbox.error.marginBottom = moderateScale(5);
 
 formStyle1.textbox.normal.fontSize = moderateScale(23);
 formStyle1.textbox.error.fontSize = moderateScale(23);
-formStyle1.textbox.normal.color = '#393939';
+formStyle1.textbox.normal.color = '#fff';
 formStyle1.textbox.error.color = 'orange';
 
 //Entry label styling
