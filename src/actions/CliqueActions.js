@@ -95,7 +95,7 @@ export const fetchAllCliqs = () => {
 export const createClique = (cliqInfo) => {
   return (dispatch) => {
     dispatch({ type: CREATE_CLIQ })
-    const { name, imgUrl, school } = cliqInfo
+    const { name, imgUrl, school, cliqMates, } = cliqInfo
     try {
       const user = firebase.auth().currentUser
       firebase.firestore().collection('cliques').add({
@@ -103,8 +103,10 @@ export const createClique = (cliqInfo) => {
         cliqPic: imgUrl,
         cliqCreator: user.uid,
         school: school,
-      }).then(() => {
+      }).then((docRef) => {
+        var cliqId = docRef.id
         dispatch({ type: CREATE_CLIQ_SUCCESS })
+        addUsers(cliqMates, cliqId)
       })
     } catch(err) {
       dispatch({ type: CREATE_CLIQ_FAILURE })
@@ -113,19 +115,20 @@ export const createClique = (cliqInfo) => {
 }
 
 //Adding user's ref to cliq
-export const AddToCLiq = (cliqMates) => {
+const addUsers = (cliqMates, cliqId) => {
   return (dispatch) => {
     if (cliqMates.length > 0) {
-      _.forEach(cliqMates, () => {
-        addCollection(dispatch)
-        addToUser(dispatch)
+      _.forEach(cliqMates, (cliqMate) => {
+        var userUid = cliqMate.uid
+        addToCliq(dispatch, cliqId, userUid)
+        addToUser(dispatch, cliqId, userUid)
       })
     }
   }
 }
 
 //Adding user's id ref to the cliq's collection
-const addCollection = (dispatch, cliqId, userUid) => {
+const addToCliq = (dispatch, cliqId, userUid) => {
   dispatch({ type: ADDING_TO_CLIQ })
   try {
     firebase.firestore.collection('cliques').doc(cliqId)
@@ -140,13 +143,13 @@ const addCollection = (dispatch, cliqId, userUid) => {
 }
 
 //Adding cliq id ref to user's collection
-const addToUser = (dispatch, cliqId, userInfo) => {
+const addToUser = (dispatch, cliqId, userId) => {
   dispatch({ type: ADDING_TO_USER })
   try {
     firebase.firestore.collection('users').doc(userId)
       .collection('cliqs').doc(cliqId).set({
         cliqId,
-        userInfo,
+        userId,
       }).then(() => {
         dispatch({ ADDED_TO_USER_SUCCESS })
       })

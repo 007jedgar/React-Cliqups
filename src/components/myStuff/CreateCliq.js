@@ -22,11 +22,11 @@ class CreateCliq extends Component {
 
     this.state = {
       classmates: [],
-    },
+    }
   }
 
   renderCliqPic() {
-    const uri = "https://firebasestorage.googleapis.com/v0/b/varsityprep-8fce6.appspot.com/o/coach_pics%2Ft9OwHWV2LIX5nozsKUJqqrnqKv32?alt=media&token=5c82f986-5d79-4c48-b927-ef95eb6382f0"
+    const uri = "https://firebasestorage.googleapis.com/v0/b/varsityprep-8fce6.appspot.com/o/coach_pics%2Ft9OwHWV2LIX5nozsKUJqqrnqKv32?alt=media&token=5c82f986-5d79-4c48-b927-ef95eb6382f0";
     return (
       <View>
         <CachedImage
@@ -47,6 +47,7 @@ class CreateCliq extends Component {
             phone={item.phone}
             school={item.school}
             year={item.year}
+            userUid={item.uid}
           />
         }
         keyExtractor={ item => item.phone.toString()}
