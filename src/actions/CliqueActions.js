@@ -40,7 +40,7 @@ import firebase from 'react-native-firebase';
 var _ = require('lodash')
 const db = firebase.firestore();
 
-
+//Fetch cliqs that ther user is a part of
 export const fetchUserCliqs = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_CLIQS })
@@ -70,6 +70,7 @@ export const fetchUserCliqs = () => {
   }
 }
 
+//Fetch All cliques
 export const fetchAllCliqs = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_CLIQS })
@@ -90,16 +91,18 @@ export const fetchAllCliqs = () => {
   }
 }
 
+//On create clique
 export const createClique = (cliqInfo) => {
   return (dispatch) => {
     dispatch({ type: CREATE_CLIQ })
-    const { name, imgUrl } = cliqInfo
+    const { name, imgUrl, school } = cliqInfo
     try {
       const user = firebase.auth().currentUser
       firebase.firestore().collection('cliques').add({
         name: name,
-        cliqPic: igUrl,
+        cliqPic: imgUrl,
         cliqCreator: user.uid,
+        school: school,
       }).then(() => {
         dispatch({ type: CREATE_CLIQ_SUCCESS })
       })
@@ -109,6 +112,7 @@ export const createClique = (cliqInfo) => {
   }
 }
 
+//Adding user's ref to cliq
 export const AddToCLiq = (cliqMates) => {
   return (dispatch) => {
     if (cliqMates.length > 0) {
@@ -120,6 +124,7 @@ export const AddToCLiq = (cliqMates) => {
   }
 }
 
+//Adding user's id ref to the cliq's collection
 const addCollection = (dispatch, cliqId, userUid) => {
   dispatch({ type: ADDING_TO_CLIQ })
   try {
@@ -134,6 +139,7 @@ const addCollection = (dispatch, cliqId, userUid) => {
   }
 }
 
+//Adding cliq id ref to user's collection
 const addToUser = (dispatch, cliqId, userInfo) => {
   dispatch({ type: ADDING_TO_USER })
   try {
@@ -149,6 +155,7 @@ const addToUser = (dispatch, cliqId, userInfo) => {
   }
 }
 
+// Fetch user's cliqs
 export const fetchUploads = () => {
   return (dispatch) => {
     const user = firebase.auth().currentUser;
@@ -182,6 +189,7 @@ export const fetchUploads = () => {
   }
 }
 
+// Create a img post to a cliq
 export const createPost = (cliqueId, postInfo) => {
   return (dispatch) => {
     try {
@@ -222,6 +230,7 @@ export const createPost = (cliqueId, postInfo) => {
   }
 }
 
+// Save user's profile pic
 export const saveProfilePic = (imgUrl) => {
   return (dispatch) => {
     dispatch({ type: SAVE_PROFILE_PIC })
@@ -234,23 +243,6 @@ export const saveProfilePic = (imgUrl) => {
         })
     } catch(err) {
       dispatch({ type: SAVE_PROFILE_PIC_FAILURE })
-    }
-  }
-}
-
-export const createProfile = () => {
-  return (dispatch) => {
-    try {
-      dispatch({ type: CREATE_PROFILE })
-      firebase.firestore().collection('users').doc(user.uid)
-        .set({
-          name: name,
-          phone: phone,
-        }).then(() => {
-          dispatch({ type: CREATE_PROFILE_SUCCESS })
-        })
-    } catch(err) {
-      dispatch({ type: CREATE_PROFILE_FAILURE })
     }
   }
 }

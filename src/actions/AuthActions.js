@@ -16,6 +16,9 @@ import {
   FETCH_USERS,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
+  CREATE_PROFILE,
+  CREATE_PROFILE_SUCCESS,
+  CREATE_PROFILE_FAILURE,
  } from './types';
 import firebase from 'react-native-firebase';
 
@@ -136,6 +139,24 @@ export const createUser = (userInfo) => {
         })
     } catch (err) {
       dispatch({ type: CREATE_USER_FAILURE })
+    }
+  }
+}
+
+//
+export const createProfile = () => {
+  return (dispatch) => {
+    try {
+      dispatch({ type: CREATE_PROFILE })
+      firebase.firestore().collection('users').doc(user.uid)
+        .set({
+          name: name,
+          phone: phone,
+        }).then(() => {
+          dispatch({ type: CREATE_PROFILE_SUCCESS })
+        })
+    } catch(err) {
+      dispatch({ type: CREATE_PROFILE_FAILURE })
     }
   }
 }

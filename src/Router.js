@@ -17,6 +17,9 @@ import MyStuff from './components/myStuff/MyStuff';
 import Top100 from './components/top/Top100';
 import Slide from './components/slide/Slides';
 import NewCliq from './components/profile/NewCliq';
+import Classmate from './components/search/Classmate';
+import CreateCliq from './components/myStuff/CreateCliq';
+import Cliq from './components/myStuff/Cliq';
 
 import {
   scale, verticalScale, moderateScale, ScaledSheet,
@@ -53,6 +56,7 @@ class RouterComponent extends Component {
 
               <Scene key="myStuff" title="My Stuff" icon={tabIcons} >
                 <Scene key="myStuff" component={MyStuff}  hideNavBar />
+                <Scene key="createCliq" component={CreateCliq} hideNavBar />
               </Scene>
 
               <Scene key="profile" initial title="Profile" icon={tabIcons} >
@@ -63,7 +67,9 @@ class RouterComponent extends Component {
 
               <Scene key="search" title="Search" icon={tabIcons} >
                 <Scene key="search" component={Search}  hideNavBar />
+                <Scene key="classmate" component={Classmate} hideNavBar />
               </Scene>
+
             </Scene>
 
           </Stack>

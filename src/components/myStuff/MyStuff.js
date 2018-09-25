@@ -24,7 +24,6 @@ import firebase from 'react-native-firebase';
 import { ImgUpload } from '../../util/Images';
 import { ProfileCamera } from '../camera';
 
-
 class MyStuff extends Component {
   constructor(props) {
     super(props)

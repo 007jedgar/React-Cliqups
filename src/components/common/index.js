@@ -5,3 +5,4 @@ export * from './Footer';
 export * from './FootInput';
 export * from './SearchNavBar';
 export * from './SearchInput';
+export * from './BackNavBar';
