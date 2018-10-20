@@ -11,7 +11,7 @@ This readme will cover anything needed to get you started coding on this project
 - Everything on the React native [Getting Started Guide](https://facebook.github.io/react-native/docs/getting-started.html)
 
 ### Instalation
-A lot of `react-native` projects require a simple `npm i` to get going, but this one's a little bigger and uses a lot of libraries and frameworks that don't always work the way they're supposed to. 
+A lot of `react-native` projects require a simple `npm i` to get going, but this one's a little stranger and uses a few rebel libraries and frameworks that don't always do what they're supposed to. 
 
 ###### In Addition to npm installing:
 Keep an eye out for these dependecies, they may take some tinkering
