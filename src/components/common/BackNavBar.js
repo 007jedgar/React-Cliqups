@@ -28,31 +28,9 @@ class BackNavBar extends Component {
   }
 
   componentDidMount() {
-    var iphoneX = this.isIphoneX();
-    if (iphoneX) {
-      this.iphoneXOptimization();
-    }
     if (this.props.backArrow) {
       this.setState({ backArrow: this.props.backArrow})
     }
-  }
-
-  isIphoneX() {
-    let d = Dimensions.get('window');
-    const { height, width } = d;
-
-    return (
-      // This has to be iOS duh
-      Platform.OS === 'ios' &&
-
-      // Accounting for the height in either orientation
-      (height === 812 || width === 812)
-    );
-  }
-
-  iphoneXOptimization() {
-    //stuff for iphone x nav bar
-    // this.setState({ topStyle: {marginTop: -10}})
   }
 
   render() {
@@ -81,10 +59,6 @@ class BackNavBar extends Component {
             <Text style={[titleStyle, titleText]}>{title}</Text>
           </View>
 
-          <TouchableOpacity style={option} onPress={optionPress}>
-            <Text style={optionText}>{rightBtn}</Text>
-          </TouchableOpacity>
-
         </View>
       </View>
     );
@@ -104,34 +78,21 @@ const styles = ScaledSheet.create({
     marginTop: '10@ms',
     paddingBottom: '5@vs',
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   leftBtnView: {
     justifyContent: 'center',
     paddingLeft: '10@s',
     paddingRight: '20@s',
+    alignSelf: 'center',
   },
   titleView: {
-    alignSelf: 'flex-end',
-    marginLeft: '37@s',
+    alignSelf: 'center',
+    marginLeft: '57@s',
   },
   titleStyle: {
     fontSize: '26@ms',
     textAlign: 'right',
     color: 'dimgrey',
-    fontFamily: 'Atletico Medium',
-  },
-  optionText: {
-    fontSize: '22@ms',
-    fontFamily: 'Atletico Medium',
-    color: 'dimgrey'
-  },
-  option: {
-    marginRight: '10@s',
-    justifyContent: 'center',
-    borderColor: '#27a587',
-    borderRadius: 25,
-    alignSelf: 'center'
   },
   navImage: {
     width: '44@ms',

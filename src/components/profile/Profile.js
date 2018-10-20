@@ -112,6 +112,10 @@ class Profile extends Component {
             <Text style={generalStyles.header}>New Cliq</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity onPress={()=> this.newCliq()}>
+            <Text style={generalStyles.header}>New Cliq</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={()=> this.signOut()}>
             <Text style={generalStyles.header}>Logout</Text>
           </TouchableOpacity>
@@ -129,6 +133,11 @@ class Profile extends Component {
       </View>
     )
   }
+}
+
+const cliqInfo = {
+  name: 'The Ambasadors',
+  createdBy: ''
 }
 
 export default Profile;

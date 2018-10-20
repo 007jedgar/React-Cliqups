@@ -14,7 +14,7 @@ import Settings from './components/settings/Settings';
 import Search from './components/search/Search';
 import NewAF from './components/new/NewAF';
 import MyStuff from './components/myStuff/MyStuff';
-import Top100 from './components/top/Top100';
+import TopCliqs from './components/top/TopCliqs';
 import Slide from './components/slide/Slides';
 import NewCliq from './components/profile/NewCliq';
 import Classmate from './components/search/Classmate';
@@ -39,6 +39,8 @@ class RouterComponent extends Component {
         case 'My Stuff':
           image = !focused ? require('../assets/icons/emptyCamera.png') : require('../assets/icons/whiteCamera.png');
           break;
+        case 'Cliqs':
+          image = !focused ? require('../assets/icons/greyMedia.png') : require('../assets/icons/media.png');
       };
       return ( <Image source={image} style={styles.image}/> );
     }
@@ -54,12 +56,16 @@ class RouterComponent extends Component {
 
             <Scene key="cliqups" initial tabs showLabel={true} activeTintColor={'dimgrey'} labelStyle={styles.label} tabBarStyle={styles.tabs}>
 
+              <Scene key="cliqs" initial title="Cliqs" icon={tabIcons}>
+                <Scene key="topCliqs" component={TopCliqs} hideNavBar />
+              </Scene>
+
               <Scene key="myStuff" title="My Stuff" icon={tabIcons} >
                 <Scene key="myStuff" component={MyStuff}  hideNavBar />
                 <Scene key="createCliq" component={CreateCliq} hideNavBar />
               </Scene>
 
-              <Scene key="profile" initial title="Profile" icon={tabIcons} >
+              <Scene key="profile"  title="Profile" icon={tabIcons} >
                 <Scene key="profile" component={Profile} hideNavBar />
                 <Scene key="profilePic" component={ProfilePic} hideNavBar />
                 <Scene key="newCliq" component={NewCliq} hideNavBar />

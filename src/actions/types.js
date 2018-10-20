@@ -6,7 +6,7 @@ export const LOGIN_USER_FAILED = 'login_user_failed';
 export const LOGOUT_USER = 'logout_user';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'login_user_fail';
-
+ 
 export const CREATE_USER = 'create_user';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
