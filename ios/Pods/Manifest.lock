@@ -105,6 +105,8 @@ PODS:
     - React
   - react-native-camera/RN (1.1.4):
     - React
+  - react-native-image-picker (0.14.3):
+    - React
   - React/Core (0.56.0):
     - yoga (= 0.56.0.React)
   - React/CxxBridge (0.56.0):
@@ -162,6 +164,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -211,6 +214,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
   yoga:
@@ -242,9 +247,10 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-camera: ab22041dcf0403d88f2ae4b9ea3ed2644e680423
+  react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   rn-fetch-blob: 76a8f798dae965bbcd146a2438f2e1d381c91ae3
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 9c50b8a8ea105e4286fd1a399c0b5c831972c207
+PODFILE CHECKSUM: ade8183bb31e73b66d75b78e93c204fb45d253ea
 
 COCOAPODS: 1.5.2
