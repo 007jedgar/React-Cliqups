@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires access to your contacts</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -26,7 +28,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string/>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array/>
 		</dict>
@@ -56,7 +58,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires permission to your your Camera </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>This app requires access to your location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires permission to your your Microphone</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

@@ -7,6 +7,7 @@ import {
   Alert,
   TouchableOpacity,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -21,14 +22,28 @@ import { ProfileCamera } from '../camera';
 import { ImgUpload } from '../../util/Images';
 import { CachedImage } from 'react-native-cached-image';
 var ImagePicker = require('react-native-image-picker');
+import Contacts from 'react-native-contacts';
+
 
 class NewCliq extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      pic: {uri: 'https://firebasestorage.googleapis.com/v0/b/cliqups-3c8c1.appspot.com/o/profile_pics%2FApp%20Profile.jpeg?alt=media&token=f06d3923-2d22-40e8-9fe9-c4154618e2d0'},
+      pic: require('../../../assets/images/closeupWave.png'),
     }
+  }
+
+  componentDidMount() {
+    this.fetchContact()
+  }
+
+  fetchContact() {
+    Contacts.getAll((err, contacts) => {
+      if (err) return Alert.alert('There was a problem fetching your contact list');
+
+      console.log('contatcs', contacts)
+    })
   }
 
   choosePic() {
@@ -41,18 +56,12 @@ class NewCliq extends Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       }
       else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
+      } else {
         let source = { uri: response.uri };
         this.setState({
           pic: source
@@ -74,18 +83,32 @@ class NewCliq extends Component {
 
   renderCliqPic() {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-        <CachedImage
-          source={this.state.pic}
-          style={styles.img}
-        />
-        <Text style={styles.photoTitle}>Add a Cliq Pic</Text>
-        <TouchableOpacity onPress={() => this.choosePic()} style={styles.camImgContainer}>
+      <View>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
           <CachedImage
-            source={require('../../../assets/icons/whiteCamera.png')}
-            style={styles.camImg}
+            source={this.state.pic}
+            style={styles.img}
           />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.choosePic()} style={styles.camImgContainer}>
+            <CachedImage
+              source={require('../../../assets/icons/whiteCamera.png')}
+              style={styles.camImg}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView>
+          <View>
+            <TextInput
+              style={styles.cliqNameInput}
+              onChangeText={(text) => this.setState({cliqName: text})}
+              value={this.state.cliqName}
+              placeholder="Cliq Name"
+              autocorrect={false}
+              placeholderTextColor='#fff'
+            />
+          </View>
+        </ScrollView>
       </View>
     )
   }
@@ -113,16 +136,23 @@ const styles = ScaledSheet.create({
     height: '40@ms',
     backgroundColor: '#898989',
   },
-  photoTitle: {
-    position: 'absolute',
-    alignSelf: 'center',
-  },
   camImgContainer: {
     position: 'absolute',
     width: '40@ms',
     height: '40@ms',
     backgroundColor: '#898989',
     opacity: .8
+  },
+  cliqNameInput: {
+    height: '40@ms',
+    flex: 1,
+    color: '#fff',
+    fontFamily: 'Lato-Bold',
+    fontSize: '24@ms',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    flex: 1,
   },
 })
 
