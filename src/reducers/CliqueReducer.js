@@ -35,6 +35,8 @@ import {
   FETCH_POSTS,
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_FAILURE,
+  FETCH_SELF,
+  FETCH_SELF_FAILED,
  } from '../actions/types';
 
 const INITAL_STATE = {
@@ -46,13 +48,21 @@ const INITAL_STATE = {
     empty: false,
     cliqs: [],
     posts: [],
-  }
+  },
+  selfDocInfo: {
+    empty: false,
+    self: {},
+  },
 };
 
 export default (state = INITAL_STATE, action) => {
   switch (action.type) {
     case CREATE_POST:
       return { ...state, loading: true }
+    case FETCH_SELF:
+      return { ...state, loading: false, selfDocInfo: action.payload }
+    case FETCH_SELF_FAILED:
+      return { ...state, loading: false }
     default:
       return state;
   }

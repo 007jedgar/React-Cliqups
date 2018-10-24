@@ -35,6 +35,8 @@ import {
   FETCH_POSTS,
   FETCH_POSTS_SUCCESS,
   FETCH_POSTS_FAILURE,
+  FETCH_SELF,
+  FETCH_SELF_FAILED,
 } from './types';
 import firebase from 'react-native-firebase';
 var _ = require('lodash')
@@ -349,7 +351,23 @@ export const fetchPosts = () => {
 
 export const FindSchools = () => {
   return (dispatch) => {
-    //google query
+    //google query based on loncation
 
+  }
+}
+
+export const fetchSelf = () => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    firebase.firestore().collection('users').doc(user.uid)
+    .get().then((doc) => {
+      if (!doc.exists) {
+        const selfDocInfo = { empty: true, self: [] }
+        return dispatch({ type: FETCH_SELF, payload: selfDocInfo })
+      }
+
+      const selfDocInfo = { empty: false, self: doc.data()}
+      dispatch({ type: FETCH_SELF, payload: selfDocInfo })
+    })
   }
 }

@@ -21,8 +21,12 @@ import firebase from 'react-native-firebase';
 import { ProfileCamera } from '../camera';
 import { ImgUpload } from '../../util/Images';
 import { CachedImage } from 'react-native-cached-image';
+import {
+  fetchUsers,
+} from '../../actions'
 var ImagePicker = require('react-native-image-picker');
 import Contacts from 'react-native-contacts';
+var _ = require('lodash')
 
 
 class NewCliq extends Component {
@@ -31,19 +35,38 @@ class NewCliq extends Component {
 
     this.state = {
       pic: require('../../../assets/images/closeupWave.png'),
+      selfDocInfo: {},
+      classmates: [],
     }
   }
 
   componentDidMount() {
     this.fetchContact()
+    this.props.fetchUsers()
+    this.props.fetchSelf()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.classmates) {
+      this.setState({ classmates: nextProps.classmates })
+    }
+    if (nextProps.selfDocInfo) {
+      this.setState({ selfDocInfo: nextProps.selfDocInfo })
+    }
   }
 
   fetchContact() {
-    Contacts.getAll((err, contacts) => {
-      if (err) return Alert.alert('There was a problem fetching your contact list');
+    if (this.state.classmates) {
+      const cm = this.state.classmates
+      Contacts.getAll((err, contacts) => {
+        if (err) return Alert.alert('There was a problem fetching your contact list');
 
-      console.log('contatcs', contacts)
-    })
+        console.log('contatcs', contacts)
+        _.forEach(contacts, (contact) => {
+          //create 2deminsional array
+        })
+      })
+    }
   }
 
   choosePic() {
@@ -156,4 +179,13 @@ const styles = ScaledSheet.create({
   },
 })
 
-export default NewCliq;
+const mapStateToProps = state => {
+  const { classmates, selfDocInfo } = state.cliq
+
+  return {
+    classmates,
+    selfDocInfo,
+  }
+}
+
+export default connect(mapStateToProps, {fetchUsers})(NewCliq);

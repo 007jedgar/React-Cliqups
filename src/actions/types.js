@@ -6,7 +6,7 @@ export const LOGIN_USER_FAILED = 'login_user_failed';
 export const LOGOUT_USER = 'logout_user';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'login_user_fail';
- 
+
 export const CREATE_USER = 'create_user';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const CREATE_USER_FAILURE = 'create_user_failure';
@@ -67,3 +67,6 @@ export const ADDED_TO_USER_FAILURE = 'added_to_user_failure';
 export const COMMENT = 'comment';
 export const COMMENT_SUCCESS = 'comment_success';
 export const COMMENT_FAILURE = 'comment_failure';
+
+export const FETCH_SELF = 'fetch_self';
+export const FETCH_SELF_FAILED = 'fetch_self_failed';
