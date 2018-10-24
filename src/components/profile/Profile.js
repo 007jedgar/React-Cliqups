@@ -30,6 +30,9 @@ class Profile extends Component {
     }
   }
 
+  componentDidMount() {
+  }
+
   saveImg(data, caseId) {
     var photoCount = this.state.photoCount + 1;
     this.setState({ photoCount: photoCount });
@@ -92,6 +95,14 @@ class Profile extends Component {
     })
   }
 
+  signIn() {
+    const email = "007j.edgar@gmail.com"
+    const password = 'password'
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+      Alert.alert('not signed in')
+    });
+  }
+
   newCliq() {
     Actions.newCliq()
   }
@@ -103,14 +114,6 @@ class Profile extends Component {
           <NavBar
             title="Profile"
           />
-
-          <TouchableOpacity onPress={() => this.toggleCamera()}>
-            <Text style={generalStyles.header}>Show camera</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={()=> this.newCliq()}>
-            <Text style={generalStyles.header}>New Cliq</Text>
-          </TouchableOpacity>
 
           <TouchableOpacity onPress={()=> this.newCliq()}>
             <Text style={generalStyles.header}>New Cliq</Text>

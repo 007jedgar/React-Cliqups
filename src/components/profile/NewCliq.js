@@ -27,16 +27,13 @@ class NewCliq extends Component {
     super(props)
 
     this.state = {
-      pic: '',
+      pic: {uri: 'https://firebasestorage.googleapis.com/v0/b/cliqups-3c8c1.appspot.com/o/profile_pics%2FApp%20Profile.jpeg?alt=media&token=f06d3923-2d22-40e8-9fe9-c4154618e2d0'},
     }
   }
 
   choosePic() {
     var options = {
       title: 'Select Avatar',
-      customButtons: [
-        {name: 'fb', title: 'Choose Photo from Facebook'},
-      ],
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -57,26 +54,32 @@ class NewCliq extends Component {
       }
       else {
         let source = { uri: response.uri };
-
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
         this.setState({
-          avatarSource: source
+          pic: source
         });
+        const user = firebase.auth().currentUser
+        const imgRef = "profile_pics"
+        ImgUpload(source, user, imgRef).then((url) => {
+          firebase.firestore().collection('users').doc(user.uid)
+          .update({
+            profile_pic: url,
+          })
+        }).catch((err) => {
+          console.log('err', err)
+          Alert.alert("There was a problem uploading your photo. Please try again")
+        })
       }
     });
   }
 
   renderCliqPic() {
-    const imgUrl = "https://firebasestorage.googleapis.com/v0/b/varsityprep-8fce6.appspot.com/o/coach_pics%2Ft9OwHWV2LIX5nozsKUJqqrnqKv32?alt=media&token=5c82f986-5d79-4c48-b927-ef95eb6382f0";
-
     return (
       <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
         <CachedImage
-          source={{uri: imgUrl }}
+          source={this.state.pic}
           style={styles.img}
         />
+        <Text style={styles.photoTitle}>Add a Cliq Pic</Text>
         <TouchableOpacity onPress={() => this.choosePic()} style={styles.camImgContainer}>
           <CachedImage
             source={require('../../../assets/icons/whiteCamera.png')}
@@ -91,7 +94,7 @@ class NewCliq extends Component {
     return (
       <View style={generalStyles.darkContainer}>
         <BackNavBar
-          title="New Cliq"
+          title="Create"
         />
 
         {this.renderCliqPic()}
@@ -104,12 +107,15 @@ const styles = ScaledSheet.create({
   img: {
     flex: 1,
     height: '200@ms',
-    opacity: .9,
   },
   camImg: {
     width: '40@ms',
     height: '40@ms',
     backgroundColor: '#898989',
+  },
+  photoTitle: {
+    position: 'absolute',
+    alignSelf: 'center',
   },
   camImgContainer: {
     position: 'absolute',
