@@ -60,8 +60,9 @@ class Search extends Component {
             <SearchContactCard
               name={item.name}
               phone={item.phone}
-              school={item.school}
+              school_id={item.school_id}
               year={item.year}
+              pic={item.profile_pic}
             />
           }
           keyExtractor={ item => item.phone.toString()}

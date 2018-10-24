@@ -194,9 +194,9 @@ export const fetchUsers = () => {
 
     dispatch({ type: FETCH_USERS })
     try {
-      var users = []
       firebase.firestore().collection('users')
         .onSnapshot((querySnap) => {
+          var users = []
           if (querySnap.empty) {
             console.log('empty')
             dispatch({ type: FETCH_USERS, payload: users })
