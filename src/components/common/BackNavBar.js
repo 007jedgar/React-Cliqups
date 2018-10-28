@@ -93,6 +93,7 @@ const styles = ScaledSheet.create({
     fontSize: '26@ms',
     textAlign: 'right',
     color: 'dimgrey',
+    fontFamily: 'OpenSans-Regular',
   },
   navImage: {
     width: '44@ms',

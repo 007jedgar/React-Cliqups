@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  FlatList,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
 import { Spinner, FootInput, BackNavBar } from '../common';
+import { CliqmateCard } from '../containers';
 import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -23,6 +25,7 @@ import { ImgUpload } from '../../util/Images';
 import { CachedImage } from 'react-native-cached-image';
 import {
   fetchUsers,
+  fetchSelf,
 } from '../../actions'
 var ImagePicker = require('react-native-image-picker');
 import Contacts from 'react-native-contacts';
@@ -106,7 +109,6 @@ class NewCliq extends Component {
 
   renderCliqPic() {
     return (
-      <View>
         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
           <CachedImage
             source={this.state.pic}
@@ -119,21 +121,52 @@ class NewCliq extends Component {
             />
           </TouchableOpacity>
         </View>
-
-        <ScrollView>
-          <View>
-            <TextInput
-              style={styles.cliqNameInput}
-              onChangeText={(text) => this.setState({cliqName: text})}
-              value={this.state.cliqName}
-              placeholder="Cliq Name"
-              autocorrect={false}
-              placeholderTextColor='#fff'
-            />
-          </View>
-        </ScrollView>
-      </View>
     )
+  }
+
+  renderCliqNameInput() {
+    return (
+      <ScrollView>
+        <View>
+          <TextInput
+            style={styles.cliqNameInput}
+            onChangeText={(text) => this.setState({cliqName: text})}
+            value={this.state.cliqName}
+            placeholder="Cliq Name"
+            autocorrect={false}
+            placeholderTextColor='#fff'
+          />
+        </View>
+      </ScrollView>
+    )
+  }
+
+  renderClassmates() {
+    if (this.state.classmates) {
+      return (
+        <FlatList
+          data={this.state.classmates}
+          renderItem={({item}) =>
+            <CliqmateCard
+              name={item.name}
+              phone={item.phone}
+              school_id={item.school_id}
+              year={item.year}
+              pic={item.profile_pic}
+            />
+          }
+          keyExtractor={ item => item.phone.toString()}
+          extraData={this.state.classmates}
+        />
+      )
+    }
+  }
+
+  renderCreateCliqBtn() {
+    const { cliqName,  } = this.state
+    if (cliqName) {
+
+    }
   }
 
   render() {
@@ -144,6 +177,11 @@ class NewCliq extends Component {
         />
 
         {this.renderCliqPic()}
+
+        {this.renderCliqNameInput()}
+
+        {this.renderClassmates()}
+
       </View>
     )
   }
@@ -188,4 +226,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {fetchUsers})(NewCliq);
+export default connect(mapStateToProps, {fetchUsers, fetchSelf})(NewCliq);

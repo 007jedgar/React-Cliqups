@@ -6,3 +6,4 @@ export * from './SearchContactCard';
 export * from './CliqsCard';
 export * from './UploadsCard';
 export * from './Block';
+export * from './CliqmateCard';
