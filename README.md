@@ -10,7 +10,7 @@ This readme will cover anything needed to get you started coding on this project
 - Text Editor
 - Everything on the React native [Getting Started Guide](https://facebook.github.io/react-native/docs/getting-started.html)
 
-### Instalation
+### Installation
 
 * make a folder and `$ cd` into it
 * `git clone git@github.com:007jedgar/React-Cliqups.git`
