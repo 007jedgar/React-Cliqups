@@ -18,7 +18,7 @@
     "moment": "^2.22.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
-    "react-native-cached-image": "^1.4.3",
+    "react-native-cached-image": "github:fungilation/react-native-cached-image",
     "react-native-camera": "^1.1.4",
     "react-native-contacts": "^2.2.4",
     "react-native-firebase": "^4.3.8",
