@@ -3,11 +3,16 @@ package com.cliqups;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -28,12 +33,17 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
             new RNFetchBlobPackage(),
             new ImagePickerPackage(),
             new PickerPackage(),
             new RNCameraPackage(),
             new RNFirebasePackage(),
-            new ReactNativeContacts())
+            new ReactNativeContacts(),
+            new RNFirebaseFirestorePackage(),
+            new RNFirebaseFunctionsPackage(),
+            new RNFirebaseStoragePackage(),
+            new RNFirebaseAuthPackage())
       );
     }
 

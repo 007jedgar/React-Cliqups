@@ -14,4 +14,6 @@
 # class:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
+-keep class io.invertase.firebase.** { *; }
+-dontwarn io.invertase.firebase.**
 #}
