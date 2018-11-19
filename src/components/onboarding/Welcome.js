@@ -7,6 +7,8 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
+  DatePickerIOS,
+  ScrollView
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -280,14 +282,20 @@ class Welcome extends Component {
   render() {
     return (
       <View style={generalStyles.container}>
-        <Image
-          source={(require('../../../assets/images/suhDude.png'))}
-          style={styles.img}
-          resizeMode="cover"
-        />
-        {this.renderChangeAuth()}
-        {this.renderSignUp()}
-        {this.renderSignin()}
+      <ScrollView style={{flex: 1}}>
+          <Image
+            source={(require('../../../assets/images/suhDude.png'))}
+            style={styles.img}
+            resizeMode="cover"
+          />
+          {this.renderChangeAuth()}
+          {this.renderSignUp()}
+          {this.renderSignin()}
+
+          <DatePickerIOS
+            date={new Date()}
+          />
+        </ScrollView>
       </View>
     )
   }

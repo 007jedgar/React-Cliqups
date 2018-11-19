@@ -48,13 +48,13 @@ class RouterComponent extends Component {
       <Router>
           <Stack key="root" hideNavBar initial>
 
-            <Scene key="welcome" component={Welcome}  hideNavBar />
+            <Scene key="welcome" initial component={Welcome}  hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
             <Scene key="slides" component={Slide}  hideNavBar />
 
-            <Scene key="cliqups" initial tabs showLabel={true} activeTintColor={'dimgrey'} labelStyle={styles.label} tabBarStyle={styles.tabs}>
+            <Scene key="cliqups"  tabs showLabel={true} activeTintColor={'dimgrey'} labelStyle={styles.label} tabBarStyle={styles.tabs}>
 
               <Scene key="cliqs" initial title="Cliqs" icon={tabIcons}>
                 <Scene key="topCliqs" component={TopCliqs} hideNavBar />
