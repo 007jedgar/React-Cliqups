@@ -78,7 +78,7 @@ export const fetchAllCliqs = () => {
     dispatch({ type: FETCH_CLIQS })
     try {
       var cliqs = []
-      firebase.firestore().collection('cliqeus')
+      firebase.firestore().collection('cliqs')
         .get().then((querySnap) => {
           querySnap.forEach((doc) => {
             cliqs.push(doc.data())
@@ -100,7 +100,7 @@ export const createClique = (cliqInfo) => {
     const { name, imgUrl, school, cliqMates, } = cliqInfo
     try {
       const user = firebase.auth().currentUser
-      firebase.firestore().collection('cliques').add({
+      firebase.firestore().collection('cliqs').add({
         name: name,
         cliqPic: imgUrl,
         cliqCreator: user.uid,
@@ -133,7 +133,7 @@ const addUsers = (cliqMates, cliqId) => {
 const addToCliq = (dispatch, cliqId, userUid) => {
   dispatch({ type: ADDING_TO_CLIQ })
   try {
-    firebase.firestore.collection('cliques').doc(cliqId)
+    firebase.firestore.collection('cliqs').doc(cliqId)
       .collection('cliqMates').add({
         userUid,
       }).then(() => {
@@ -195,7 +195,7 @@ export const fetchUploads = () => {
 }
 
 // Create a img post to a cliq
-export const createPost = (cliqueId, postInfo) => {
+export const createPost = (cliqId, postInfo) => {
   return (dispatch) => {
     try {
       const user = firebase.auth().currentUser
@@ -203,31 +203,34 @@ export const createPost = (cliqueId, postInfo) => {
       const id = Math.floor(Math.random() * 12)
       const { name, text, imgUrl, } = postInfo
 
-      firebase.firestore().collection('cliques').doc(cliqueId)
-        .collection('posts').add({
-          creatorUid: user.uid,
-          creatorPath: user,
-          creatorName: name,
-          createdOn: time,
-          postImg: imgUrl,
-          postId: id,
-          text: text,
-        }).catch((err) => {
-          console.log('err w/posts', err)
-        })
+      firebase.firestore().collection('users')
+      .doc(user.uid).collection('users_posts').doc(cliqId)
+      .set({
+        cliqId: cliqId,
+        creatorUid: user.uid,
+        creatorPath: user,
+        creatorName: name,
+        createdOn: time,
+        postImg: imgUrl,
+        postId: id,
+        text: text,
+      }).catch((err) => {
+        console.log('err w/posts', err)
+      })
 
-      firebase.firestore().collection('users').doc(user.uid)
-        .collection('uploads').add({
-          creatorUid: user.uid,
-          creatorPath: user,
-          creatorName: name,
-          createdOn: time,
-          postImg: imgUrl,
-          postId: id,
-          text: text,
-        }).catch((err) => {
-          console.log('err w/uploads', err)
-        })
+      firebase.firestore().collection('cliq_posts').doc(cliqId)
+      .set({
+        cliqId: cliqId,
+        creatorUid: user.uid,
+        creatorPath: user,
+        creatorName: name,
+        createdOn: time,
+        postImg: imgUrl,
+        postId: id,
+        text: text,
+      }).catch((err) => {
+        console.log('err w/posts 1', err)
+      })
     } catch(err) {
       console.log('err',err)
       dispatch({ type: CREATE_POST_FAILURE })
@@ -305,7 +308,7 @@ export const comment = (replyData) => {
     const { text, user, timeStamp, userUid } = replyData
     try {
       firebase.firestore().collection('cliques')
-        .doc(cliqId).collection('replies')
+        .doc(cliqId).collection('cliq_replies')
           .add({
             text,
             user,
@@ -320,12 +323,29 @@ export const comment = (replyData) => {
   }
 }
 
+export const deleteComment = (commentId) => {
+  return (dispatch) => {
+    dispatch({ type: COMMENT })
+    const { text, user, timeStamp, userUid } = replyData
+    try {
+      firebase.firestore().collection('cliques')
+      .doc(cliqId).collection('cliq_replies')
+      .doc(commentId).delete().then(() => {
+          dispatch({ type: COMMENT_SUCCESS })
+        })
+    } catch(err) {
+      dispatch({ type: COMMENT_FAILURE })
+    }
+  }
+}
+
+
 export const fetchPosts = () => {
   return (dispatch) => {
     var posts = []
     try {
       firebase.firestore().collection('cliqs').doc(cliqId)
-        .collection('replies').get().then((querySnap) => {
+        .collection('cliq_replies').get().then((querySnap) => {
           if (querySnap.empty) {
             const data = {
               posts: [],
@@ -349,13 +369,6 @@ export const fetchPosts = () => {
   }
 }
 
-export const FindSchools = () => {
-  return (dispatch) => {
-    //google query based on loncation
-
-  }
-}
-
 export const fetchSelf = () => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
@@ -372,6 +385,63 @@ export const fetchSelf = () => {
   }
 }
 
+export const followCliq = (cliqId, cliqInfo, userInfo) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+      firebase.firestore().collection('cliqs').doc(cliqId)
+      .collection('cliq_followers').add({
+        userInfo,
+      }).then((docId) => {
+        firebase.firestore().collection('users').doc(user.uid)
+        .collection('followed_cliqs').doc(docId).set({
+          cliqId,
+          cliqInfo,
+          docId,
+        }).then(() => {
+          dispatch({})
+        })
+      }).catch((err) => {
+        dispatch({})
+      })
+    } catch(err) {
+      dispatch({})
+    }
+  }
+}
+
+export const unfollowCliq = (cliqId, cliqInfo, docId) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+      firebase.firestore().collection('users').doc(user.uid)
+      .collection('followed_cliqs').doc(docId)
+      .delete().then(() => {
+        firebase.firestore().collection('cliqs').doc(cliqId)
+        .collection('cliq_followers').doc(docId)
+        .delete().then(() => {
+          dispatch({ })
+        }).catch((err) => {
+          dispatch({ })
+        })
+      })
+    } catch(err) {
+      dispatch({ })
+    }
+  }
+}
+
+
+export const funcName = () => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+
+    } catch(err) {
+
+    }
+  }
+}
 ///New Followers For Cliqs
 
 ///Blocked users
