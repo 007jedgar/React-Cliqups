@@ -431,6 +431,52 @@ export const unfollowCliq = (cliqId, cliqInfo, docId) => {
   }
 }
 
+export const postLike = () => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+      firebase.firestore().collection('cliqs').doc(cliqId)
+      .get().then((doc) => {
+        var likes = doc.data().likes
+        likes = likes + 1
+        firebase.firestore().collection('cliqs').doc(cliqId)
+        .update({
+          likes: likes,
+        }).then(() => {
+          dispatch({ })
+        }).catch(err => {
+          dispatch({ })
+        })
+      })
+    } catch(err) {
+
+    }
+  }
+}
+
+export const postUnlike = () => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+      firebase.firestore().collection('cliqs').doc(cliqId)
+      .get().then((doc) => {
+        var likes = doc.data().likes
+        likes = likes - 1
+        firebase.firestore().collection('cliqs').doc(cliqId)
+        .update({
+          likes: likes,
+        }).then(() => {
+          dispatch({ })
+        }).catch(err => {
+          dispatch({ })
+        })
+      })
+    } catch(err) {
+      dispatch({ })
+    }
+  }
+}
+
 
 export const funcName = () => {
   return (dispatch) => {

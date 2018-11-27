@@ -213,3 +213,14 @@ export const fetchUsers = () => {
     }
   }
 }
+
+export const instagramAuth = () => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+    try {
+
+    } catch(err) {
+      dispatch({ })
+    }
+  }
+}
