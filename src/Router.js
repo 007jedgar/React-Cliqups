@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Scene, Actions, Stack, Modal, } from 'react-native-router-flux';
+import { Router, Scene, Stack } from 'react-native-router-flux';
 import { Text, View, Image } from 'react-native';
 import SignIn from './components/onboarding/SignIn';
 import InviteCode from './components/onboarding/InviteCode';
@@ -48,7 +48,7 @@ class RouterComponent extends Component {
       <Router>
           <Stack key="root" hideNavBar initial>
 
-            <Scene key="welcome" initial component={Welcome}  hideNavBar />
+            <Scene key="welcome"  component={Welcome}  hideNavBar />
             <Scene key="signin" component={SignIn}  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />

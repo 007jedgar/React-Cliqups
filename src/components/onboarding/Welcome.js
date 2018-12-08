@@ -8,7 +8,8 @@ import {
   FlatList,
   TouchableOpacity,
   DatePickerIOS,
-  ScrollView
+  ScrollView,
+  Platform,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -145,6 +146,10 @@ class Welcome extends Component {
       gradYear: this.state.user.gradYear,
     }
     this.props.createUser(userInfo)
+  }
+
+  onHandleAlert = () => {
+    const profile
   }
 
   onChangeValue(value) {

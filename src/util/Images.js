@@ -9,7 +9,7 @@ export const ImgUpload = (uri, user, imgRef) => {
   return uploadImage(uri, imgRef);
 };
 
-//Does all the blobifying work and sends blob to
+//Does all the blobifying work and sends blob to fb storage
 const uploadImage = (uri, imgRef, mime = 'application/octet-stream') => {
   const user = firebase.auth().currentUser;
   console.log('user', user)

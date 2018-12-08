@@ -19,6 +19,9 @@ import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 import { ProfileCamera } from '../camera';
 import { ImgUpload } from '../../util/Images';
+import {
+  loginUser,
+} from '../../actions'
 
 class Profile extends Component {
   constructor(props) {
@@ -31,7 +34,11 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    
+    const user = 'ryanrickert@gmail.com'
+    password = 'password'
+    // this.props.loginUser(user, password)
+    const auth = [ user, password]
+    console.log('hello profile', auth)
   }
 
   saveImg(data, caseId) {
@@ -142,6 +149,15 @@ class Profile extends Component {
 const cliqInfo = {
   name: 'The Ambasadors',
   createdBy: ''
+
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  const { user } = state.auth
+
+  return {
+    user,
+  }
+}
+
+export default connect(mapStateToProps, {loginUser}) (Profile);

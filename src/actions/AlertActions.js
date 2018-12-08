@@ -125,6 +125,7 @@ export const tagViewedAlerts = () => {
       repliesref.where("seen", "==", false)
       .get().then((querySnap) => {
         if (querySnap.empty) {
+          Actions.profile({ profileId: id })
           dispatch({ })
         }
 
