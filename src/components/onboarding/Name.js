@@ -125,7 +125,7 @@ class Name extends Component {
         <Picker
           itemStyle={styles.pickerText}
           selectedValue={this.state.selectedGradYear}
-          onValueChange={(itemValue, itemIndex) => this.setState({selectedGradYear: itemValue, showGradYearModal: false,})}>
+          onValueChange={(itemValue, itemIndex) => this.setState({selectedGradYear: itemValue, showGradYearModal: !this.state.showGradYearModal,})}>
           <Picker.Item label="2019" value="Senior" />
           <Picker.Item label="2020" value="Junior" />
           <Picker.Item label="2021" value="Sophomore" />
@@ -200,7 +200,8 @@ class Name extends Component {
   renderGradInput() {
     if (!_.isEmpty(this.state.selectedSchool)) {
       return (
-        <TouchableOpacity onPress={() => this.setState({ showGradYearModal: true})} style={styles.btnStyle}>
+        <TouchableOpacity onPress={() => this.setState({ showGradYearModal: !this.state.showGradYearModal
+        })} style={styles.btnStyle}>
           <Text style={styles.labelStyle}>{this.state.selectedGradYear}</Text>
         </TouchableOpacity>
       )
