@@ -149,7 +149,7 @@ class Welcome extends Component {
   }
 
   onHandleAlert = () => {
-    const profile
+    // const profile
   }
 
   onChangeValue(value) {
