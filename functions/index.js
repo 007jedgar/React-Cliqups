@@ -176,3 +176,15 @@ exports.alertNewTopCliq = functions.firestore
 ////////////////
 //                  CLIQ FUNCTIONS
 ////////////////
+
+//background function that will allow popular posts to be sorted
+//Builds a ledger of the most popular posts in the last 72 hours
+//Located under school
+exports.rankPosts = functions.firestore
+.document('schools/{schoolId}/posts/{postId}/likes/{likedBy}')
+.onCreate((snap, context) => {
+  let postId = context.params.postId
+  let post = snap.data()
+
+  
+})
