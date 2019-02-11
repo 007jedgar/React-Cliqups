@@ -112,13 +112,6 @@ exports.alertNewMember = functions.firestore
   })
 })
 
-//RECEIVED BY INVITEEE (not sure if I need a cloud functions for this)
-// exports.alertNewInvite = functions.firestore
-// .document('users/{userId}/invites/{inviteId}')
-// .onCreate((snap, context) => {
-//
-// })
-
 //RECEIVED BY UPLOAD OWNER
 exports.alertNewLike = functions.firestore
 .document('cliqs/{cliqId}/post/{postId}/likes/{likedBy}')
