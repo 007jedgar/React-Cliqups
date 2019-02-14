@@ -12,10 +12,12 @@ class Block extends Component {
 
 const styles = ScaledSheet.create({
   block: {
-    backgroundColor: '#C0D6DF',
+    backgroundColor: '#171717',
     width: '170@ms',
     height: '120@ms',
-    margin: '2@ms'
+    margin: '2@ms',
+    borderWidth: '2@ms',
+    borderColor: '#FE5F55'
   },
 })
 

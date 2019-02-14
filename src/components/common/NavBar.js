@@ -81,8 +81,8 @@ class NavBar extends Component {
 
 const styles = ScaledSheet.create({
   container: {
-    height: '45@vs',
-    backgroundColor: '#fff',
+    // height: '45@vs',
+    backgroundColor: '#171717',
     shadowOffset: {width: 3, height: 3},
     shadowColor: '#393939',
     shadowOpacity: .3,
@@ -102,8 +102,8 @@ const styles = ScaledSheet.create({
   titleStyle: {
     fontSize: '26@ms',
     textAlign: 'center',
-    color: 'dimgrey',
-    fontFamily: 'Avenir-Medium',
+    color: '#fff',
+    fontFamily: 'OpenSans-ExtraBoldItalic',
   },
 })
 

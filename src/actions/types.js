@@ -70,3 +70,13 @@ export const COMMENT_FAILURE = 'comment_failure';
 
 export const FETCH_SELF = 'fetch_self';
 export const FETCH_SELF_FAILED = 'fetch_self_failed';
+
+export const FETCH_COMMENT_ALERT = 'fetch_comment_alert'
+export const FETCH_FOLLOWER_ALERT = 'fetch_follower_alert'
+export const FETCH_INVITE_ALERT = 'fetch_invite_alert'
+export const FETCH_LIKE_ALERT = 'fetch_like_alert'
+export const FETCH_MEMBER_ALERT = 'fetch_member_alert'
+export const FETCH_TOP_CLIQ_ALERT = 'fetch_top_cliq_alert'
+export const FETCH_ALERT_ERROR = 'fetch_alert_error'
+
+//space

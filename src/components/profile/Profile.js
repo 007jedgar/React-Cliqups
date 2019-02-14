@@ -7,11 +7,15 @@ import {
   Alert,
   TouchableOpacity,
   ScrollView,
+  FlatList
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
+import {
+  AlertCard,
+} from '../containers'
 import { Spinner, FootInput, NavBar } from '../common';
 import { FooterBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
@@ -115,10 +119,22 @@ class Profile extends Component {
     Actions.newCliq()
   }
 
+  renderAlerts() {
+    if (this.props.alerts.length < 0) {
+      return (
+        <FlatList
+          renderItem={({item}) => (
+            <AlertCard alert={item}/>
+          )}
+        />
+      )
+    }
+  }
+
   renderProfile() {
     if (this.state.showProfile) {
       return (
-        <View style={generalStyles.darkContainer}>
+        <View style={generalStyles.container}>
           <NavBar
             title="Profile"
           />
@@ -138,7 +154,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <View style={generalStyles.darkContainer}>
+      <View style={generalStyles.container}>
         {this.renderCamera()}
         {this.renderProfile()}
       </View>
@@ -146,17 +162,12 @@ class Profile extends Component {
   }
 }
 
-const cliqInfo = {
-  name: 'The Ambasadors',
-  createdBy: ''
-
-}
-
 const mapStateToProps = state => {
   const { user } = state.auth
-
+  const { alerts } = state.alert
   return {
     user,
+    alerts
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -10,39 +11,14 @@ import { generalStyles, formStyle } from '../../stylesheet';
 var t = require('tcomb-form-native');
 var Form = t.form.Form;
 var _ = require('lodash');
+import {
+  TitleInput,
+} from '../containers'
 import { Actions } from 'react-native-router-flux';
 import { loginUser } from '../../actions';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
-var User = t.struct({
-  email: t.String,
-  password: t.String,
-});
-
-var options = {
-  stylesheet: formStyle,
-  fields: {
-    email: {
-      label: 'Email',
-      placeholder: 'jc123@zzpd.gov',
-      autoCapitalize: 'none',
-      placeholderTextColor: '#A0BDBC',
-      keyboardAppearance: 'dark',
-      keyboardType: 'email-address',
-      selectionColor: '#fff',
-    },
-    password: {
-      label: 'Password',
-      placeholder: 'password',
-      autoCapitalize: 'none',
-      placeholderTextColor: '#A0BDBC',
-      keyboardAppearance: 'dark',
-      secureTextEntry: true,
-      selectionColor: '#fff',
-    },
-  }
-}
 
 //Signin View
 class SignIn extends Component {
@@ -50,12 +26,20 @@ class SignIn extends Component {
     super(props)
 
     this.state = {
-      userForm: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
       loading: this.props.loading,
+      name: '',
     }
+  }
+
+  handleSignin = () => {
+    let { email, password } = this.state
+    Actions.profile()
+  }
+
+  handleSignup = () => {
+
   }
 
   changeUser(value) {
@@ -95,11 +79,54 @@ class SignIn extends Component {
     )
   }
 
+  rederAuthForm() {
+    if (this.state.signup) {
+      return (
+        <TitleInput
+          text={this.state.name}
+          placeholder="name"
+          onTyped={(t) => this.setState({ name: t })}
+          secureTextEntry
+          keyboardAppearance="dark"
+        />
+      )
+    }
+  }
+
   render() {
     return (
       <View style={generalStyles.container}>
 
-        <Text>Hello Signin</Text>
+        <Text style={styles.header}>CliqUps</Text>
+
+        <View style={styles.form}>
+          <TitleInput
+            text={this.state.email}
+            placeholder="email"
+            onTyped={(t) => this.setState({ email: t })}
+            keyboardAppearance="dark"
+            textContentType="emailAddress"
+          />
+
+          <TitleInput
+            text={this.state.password}
+            placeholder="password"
+            onTyped={(t) => this.setState({ pwassword: t })}
+            secureTextEntry
+            keyboardAppearance="dark"
+            textContentType="password"
+          />
+
+          {this.rederAuthForm()}
+
+          <TouchableOpacity style={styles.signinContainer} onPress={this.handleSignin}>
+            <Text style={styles.signinText}>Sign in</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{alignSelf: 'center'}} onPress={this.handleSignup}>
+            <Text style={styles.signupText}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -108,6 +135,37 @@ class SignIn extends Component {
 const styles = ScaledSheet.create({
   formContainer: {
     margin: '20@ms',
+  },
+  form: {
+    flex: .6,
+    justifyContent: 'center',
+  },
+  header: {
+    color: '#fff',
+    fontSize: '30@ms',
+    fontFamily: 'OpenSans-ExtraBoldItalic',
+    margin: '20@ms',
+  },
+  signinText: {
+    color: '#000',
+    fontSize: '25@ms',
+    fontFamily: 'OpenSans-ExtraBoldItalic',
+    textAlign: 'center',
+  },
+  signupText: {
+    color: '#fff',
+    fontSize: '20@ms',
+    fontFamily: 'Lato-Regular',
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
+  signinContainer: {
+    padding: '4@ms',
+    paddingRight: '10@ms',
+    paddingLeft: '10@ms',
+    backgroundColor: '#fff',
+    margin: '10@ms',
+    alignSelf: 'center',
   },
 })
 

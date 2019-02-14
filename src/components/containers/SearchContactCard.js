@@ -46,9 +46,11 @@ class SearchContactCard extends Component {
         <View style={styles.container}>
           <View style={styles.subCon}>
             <Text style={styles.name}>{name}</Text>
-            <Text style={styles.year}>{year}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.year}>{year}</Text>
+              <Text style={styles.school}>{school_name? school_name: ''}</Text>
+            </View>
           </View>
-          <Text style={styles.school}>{school_name? school_name: ''}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -58,12 +60,13 @@ class SearchContactCard extends Component {
 const styles = ScaledSheet.create({
   container: {
     margin: '10@ms',
-    borderBottomColor: '#393939',
+    borderBottomColor: '#FE5F55',
     borderBottomWidth: '2@ms',
     flexDirection: 'row',
   },
   name: {
     fontSize: '20@ms',
+    fontFamily: 'OpenSans-BoldItalic',
     color: '#fff'
   },
   year: {
@@ -75,12 +78,9 @@ const styles = ScaledSheet.create({
     margin: '5@ms',
   },
   school: {
-    marginLeft: '60@ms',
+    marginLeft: '20@ms',
     fontSize: '25@ms',
     color: 'dimgrey',
-    alignSelf: 'center',
-    margin: '5@ms',
-    position: 'absolute',
   },
 })
 

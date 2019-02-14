@@ -28,7 +28,7 @@ const styles = ScaledSheet.create({
   container: {
     height: '130@ms',
     borderWidth: '4@ms',
-    borderColor: 'green',
+    borderColor: '#FE5F55',
   },
 })
 

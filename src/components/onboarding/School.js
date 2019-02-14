@@ -14,7 +14,7 @@ var Form = t.form.Form;
 var _ = require('lodash');
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 class School extends Component {
   render() {

@@ -15,6 +15,7 @@ const { inputStyle, labelStyle, containerStyle } = styles;
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
+        placeholderTextColor="#fff"
       />
     </View>
   )
@@ -22,21 +23,19 @@ const { inputStyle, labelStyle, containerStyle } = styles;
 
 const styles = ScaledSheet.create({
   inputStyle: {
-    color: '#A7BED3',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
-    lineHeight: 23,
+    color: '#fff',
+    paddingRight: '5@ms',
+    paddingLeft: '5@ms',
+    fontSize: '25@ms',
   },
   labelStyle: {
-    fontSize: 18,
+    fontSize: '18@ms',
     fontWeight: '600',
-    color: '#56514f',
-    paddingLeft: 20,
+    color: '#fff',
+    paddingLeft: '20@ms',
     flex: 1
   },
   containerStyle: {
-    height: 40,
     width: '240@ms',
     flexDirection: 'row',
     alignItems: 'center',

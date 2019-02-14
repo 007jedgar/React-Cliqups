@@ -11,7 +11,11 @@ import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
-import { Spinner, FootInput, } from '../common';
+import {
+  Spinner,
+  FootInput,
+  NavBar,
+ } from '../common';
 import {
   Block,
 } from '../containers'
@@ -21,10 +25,17 @@ import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 
 class TopCliqs extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      title: 'Top 100'
+    }
+  }
   render() {
     return (
       <View style={generalStyles.container}>
-        <Text style={generalStyles.header}>Top100 Page</Text>
+        <NavBar title={this.state.title} />
         <ScrollView contentContainerStyle={styles.content} style={styles.grid}>
           <Block />
           <Block />

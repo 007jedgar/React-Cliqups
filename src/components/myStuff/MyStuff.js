@@ -12,7 +12,7 @@ import {
   ScaledSheet, moderateScale, scale, verticalScale,
 } from 'react-native-size-matters';
 import { generalStyles, formStyle } from '../../stylesheet';
-import { Spinner, FootInput, } from '../common';
+import { Spinner, FootInput, NavBar, } from '../common';
 import {
   CliqsCard
 } from '../containers';
@@ -110,14 +110,17 @@ class MyStuff extends Component {
   }
 
   renderTabs() {
+    let c = this.state.showCLiqs? '#FE5F55':'dimgrey';
+    let u = this.state.showCLiqs? 'dimgrey':'#FE5F55';
+
     return (
       <View style={styles.tabs}>
         <TouchableOpacity style={styles.tab} onPress={() => this.onUploads()}>
-          <Text style={styles.tabText}>Uploads</Text>
+          <Text style={[styles.tabText, {color: u }]}>Uploads</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.tab} onPress={() => this.onCliqs()}>
-          <Text style={styles.tabText}>Cliqs</Text>
+          <Text style={[styles.tabText, {color: c }]}>Cliqs</Text>
         </TouchableOpacity>
       </View>
     )
@@ -125,13 +128,7 @@ class MyStuff extends Component {
 
   renderUploads() {
     const {showUploads, noUploads} = this.state
-    if (showUploads && !noUploads) {
-      return (
-        <View>
-          <Text style={generalStyles.lightText}>Uploads</Text>
-        </View>
-      )
-    } else if (showUploads && noUploads) {
+    if (showUploads && noUploads) {
       return (
         <View>
           <Text style={generalStyles.lightText}>No Uploads</Text>
@@ -145,7 +142,6 @@ class MyStuff extends Component {
     if (showCLiqs) {
       return (
         <View>
-          <Text style={generalStyles.lightText}>Cliqs</Text>
           <ScrollView style={{height: moderateScale(500)}}>
             <CliqsCard />
           </ScrollView>
@@ -181,7 +177,7 @@ class MyStuff extends Component {
   render() {
     return (
       <View style={generalStyles.container}>
-        <Text style={generalStyles.header}>My Stuff</Text>
+        <NavBar title="My Stuff"/>
         {this.renderProfilePic()}
         {this.renderTabs()}
         {this.renderCliqs()}
@@ -216,23 +212,27 @@ const styles = ScaledSheet.create({
   tabs: {
     flexDirection: 'row',
     height: '40@ms',
+    borderWidth: '3@ms',
+    borderColor: '#FE5F55'
   },
   tabText: {
     textAlign: 'center',
     alignSelf: 'center',
     color: '#fff',
-    fontSize: '27@ms',
+    fontSize: '24@ms',
+    fontFamily: 'OpenSans-ExtraBoldItalic'
   },
   tab: {
     flex: .5,
     justifyContent: 'center',
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#171717',
   },
   dataHeader: {
     textAlign: 'center',
     alignSelf: 'center',
     color: '#fff',
-    fontSize: '25@ms',
+    fontSize: '22@ms',
+    fontFamily: 'OpenSan-ExtraBoldItalic'
   },
 })
 

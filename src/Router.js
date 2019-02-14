@@ -31,16 +31,16 @@ class RouterComponent extends Component {
       let image;
       switch(title) {
         case 'Profile':
-          image = !focused ? require('../assets/icons/greyContact.png') : require('../assets/icons/whiteContact.png');
+          image = !focused ? require('../assets/icons/greyProfile.png') : require('../assets/icons/profile.png');
           break;
         case 'Search':
-          image = !focused ? require('../assets/icons/x.png') : require('../assets/icons/whiteX.png');
+          image = !focused ? require('../assets/icons/greySearch.png') : require('../assets/icons/search.png');
           break;
         case 'My Stuff':
-          image = !focused ? require('../assets/icons/emptyCamera.png') : require('../assets/icons/whiteCamera.png');
+          image = !focused ? require('../assets/icons/greyStuff.png') : require('../assets/icons/stuff.png');
           break;
         case 'Cliqs':
-          image = !focused ? require('../assets/icons/greyMedia.png') : require('../assets/icons/media.png');
+          image = !focused ? require('../assets/icons/pyramid.png') : require('../assets/icons/whitePyramid.png');
       };
       return ( <Image source={image} style={styles.image}/> );
     }
@@ -49,7 +49,7 @@ class RouterComponent extends Component {
           <Stack key="root" hideNavBar initial>
 
             <Scene key="welcome"  component={Welcome}  hideNavBar />
-            <Scene key="signin" component={SignIn}  hideNavBar />
+            <Scene key="signin" component={SignIn} initial  hideNavBar />
             <Scene key="terms" component={Terms}  hideNavBar />
             <Scene key="name" component={Name}  hideNavBar />
             <Scene key="slides" component={Slide}  hideNavBar />
@@ -86,7 +86,7 @@ class RouterComponent extends Component {
 
 const styles = ScaledSheet.create({
   tabs: {
-    backgroundColor: '#0E4457',
+    backgroundColor: '#171717',
     borderTopWidth: 2,
   },
   image: {

@@ -31,20 +31,19 @@ class SearchNavBar extends Component {
   }
 
   renderSearchBar() {
-    if (this.state.showSearch) {
-      return (
-        <View style={styles.inputContainer}>
-          <SearchInput
-            placeholder="Cliqs, people, etc..."
-          />
-        </View>
-      )
-    }
+    return (
+      <View style={styles.inputContainer}>
+        <SearchInput
+          placeholder="Cliqs, people, etc..."
+          onChangeText={(t) => this.setState({ search: t })}
+        />
+      </View>
+    )
   }
 
   renderSearch() {
     return (
-      <TouchableOpacity onPress={() => this.searchPress()} style={styles.searchContainer}>
+      <TouchableOpacity style={styles.searchContainer}>
         <Image
           source={require('../../../assets/icons/search.png')}
           style={styles.searchImg}
@@ -73,21 +72,20 @@ class SearchNavBar extends Component {
       titleViewStyle, titleText } = this.props;
 
     return (
-      <View style={[container, style]}>
-
-        {this.renderTitle()}
-        {this.renderSearchBar()}
-        {this.renderSearch()}
-
+      <View>
+        <TouchableOpacity onPress={() => this.searchPress()} style={[container, style]}>
+          {this.renderSearchBar()}
+          {this.renderSearch()}
+        </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
 const styles = ScaledSheet.create({
   container: {
     height: '45@vs',
-    backgroundColor: '#E8F1F2',
+    backgroundColor: '#171717',
     shadowOffset: {width: 3, height: 3},
     shadowColor: '#393939',
     shadowOpacity: .3,
@@ -102,7 +100,7 @@ const styles = ScaledSheet.create({
   titleStyle: {
     fontSize: '26@ms',
     textAlign: 'center',
-    color: 'dimgrey',
+    color: '#fff',
     fontFamily: 'Avenir-Medium',
   },
   searchImg: {
