@@ -13,7 +13,7 @@ import {
 import { generalStyles, formStyle } from '../../stylesheet';
 import { Spinner, FootInput, SearchNavBar } from '../common';
 import { SearchContactCard } from '../containers';
-import { FooterBtn } from '../buttons';
+import { FooterBtn, CreateBtn, } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'react-native-firebase';
 import {
@@ -81,6 +81,7 @@ class Search extends Component {
           box=""
         />
         {this.renderClassmates()}
+        <CreateBtn />
       </View>
     )
   }

@@ -60,6 +60,11 @@ class RouterComponent extends Component {
                 <Scene key="topCliqs" component={TopCliqs} hideNavBar />
               </Scene>
 
+              <Scene key="search" title="Search" icon={tabIcons} >
+                <Scene key="search" component={Search}  hideNavBar />
+                <Scene key="classmate" component={Classmate} hideNavBar />
+              </Scene>
+
               <Scene key="myStuff" title="My Stuff" icon={tabIcons} >
                 <Scene key="myStuff" component={MyStuff}  hideNavBar />
                 <Scene key="createCliq" component={CreateCliq} hideNavBar />
@@ -69,11 +74,6 @@ class RouterComponent extends Component {
                 <Scene key="profile" component={Profile} hideNavBar />
                 <Scene key="profilePic" component={ProfilePic} hideNavBar />
                 <Scene key="newCliq" component={NewCliq} hideNavBar />
-              </Scene>
-
-              <Scene key="search" title="Search" icon={tabIcons} >
-                <Scene key="search" component={Search}  hideNavBar />
-                <Scene key="classmate" component={Classmate} hideNavBar />
               </Scene>
 
             </Scene>

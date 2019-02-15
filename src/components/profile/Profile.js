@@ -17,7 +17,7 @@ import {
   AlertCard,
 } from '../containers'
 import { Spinner, FootInput, NavBar } from '../common';
-import { FooterBtn } from '../buttons';
+import { FooterBtn, CreateBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
@@ -157,6 +157,7 @@ class Profile extends Component {
       <View style={generalStyles.container}>
         {this.renderCamera()}
         {this.renderProfile()}
+        <CreateBtn />
       </View>
     )
   }

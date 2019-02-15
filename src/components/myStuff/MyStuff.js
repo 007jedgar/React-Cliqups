@@ -16,7 +16,7 @@ import { Spinner, FootInput, NavBar, } from '../common';
 import {
   CliqsCard
 } from '../containers';
-import { FooterBtn } from '../buttons';
+import { FooterBtn, CreateBtn, } from '../buttons';
 import { ProfileCameraModal } from '../modals';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -178,12 +178,12 @@ class MyStuff extends Component {
     return (
       <View style={generalStyles.container}>
         <NavBar title="My Stuff"/>
-        {this.renderProfilePic()}
         {this.renderTabs()}
         {this.renderCliqs()}
         {this.renderUploads()}
 
         {this.renderCamera()}
+        <CreateBtn />
       </View>
     )
   }
@@ -211,9 +211,10 @@ const styles = ScaledSheet.create({
   },
   tabs: {
     flexDirection: 'row',
-    height: '40@ms',
     borderWidth: '3@ms',
-    borderColor: '#FE5F55'
+    borderColor: '#FE5F55',
+    marginBottom: '2@ms',
+    backgroundColor: '#171717'
   },
   tabText: {
     textAlign: 'center',
@@ -226,6 +227,7 @@ const styles = ScaledSheet.create({
     flex: .5,
     justifyContent: 'center',
     backgroundColor: '#171717',
+    margin: '5@ms',
   },
   dataHeader: {
     textAlign: 'center',

@@ -1,6 +1,12 @@
 const functions = require('firebase-functions');
-const admin = require('firebas-admin');
+const admin = require('firebase-admin');
 const firebase = require('firebase')
+var env = functions.config()
+var algoliasearch = require('algoliasearch')
+var client = algoliasearch(env.algolia.appid, env.algolia.apikey);
+const user_index = client.initIndex('users')
+const cliq_index = client.initIndex('cliqs')
+
 ////////////////
 //                  ALERT TYPES
 ////////////////
@@ -72,8 +78,8 @@ exports.alertNewFollower = functions.firestore
       members.forEach((m) => {
         let id = m.id
         firebase.firestore().collection('users')
-        .doc(id).collection('new_follower_alert')
-        .doc('cliqId').set(alert).then(() => {
+        .doc(id).collection('new_follower_alerts')
+        .doc(cliqId).set(alert).then(() => {
           console.log('new follower alerted')
         }).catch((err) => {
           console.log(err)
@@ -183,8 +189,41 @@ exports.alertNewTopCliq = functions.firestore
 exports.rankPosts = functions.firestore
 .document('schools/{schoolId}/posts/{postId}/likes/{likedBy}')
 .onCreate((snap, context) => {
-  let postId = context.params.postId
-  let post = snap.data()
 
-  
+})
+
+
+////////////////
+//                  SEARCH FUNCTIONS
+////////////////
+
+exports.indexUser = functions.firestore
+.document('users/{userId}').onCreate((snap, context) => {
+  const data = snap.data()
+  const objectID = snap.id
+
+  return user_index.addObject({
+    objectID,
+    data
+  })
+})
+
+exports.updateUser = functions.firestore
+  .document('users/{userId}')
+  .onUpdate((change, context) => {
+    const data = change.after.data()
+    const objectID = change.after.id
+
+    return user_index.partialUpdateObject({
+      objectID,
+      data
+  })
+})
+
+exports.deleteUser = functions.firestore
+  .document('users/{userId}')
+  .onDelete((snap, context) => {
+    const objectID = snap.id
+
+    return user_index.deleteObject(objectID)
 })

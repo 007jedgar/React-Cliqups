@@ -40,15 +40,20 @@ class SearchContactCard extends Component {
 
   render() {
     const { name, phone, school, year } = this.props;
-    const { school_name } = this.state
+    let { school_name } = this.state
+    school_name = school_name? school_name : '';
+    school_name = school_name.replace('High School', 'HS')
+    school_name = school_name.replace('Prepatory', 'Prep')
+
     return (
       <TouchableOpacity onPress={() => this.pressed()}>
         <View style={styles.container}>
+          <Image style={styles.img} source={require('../../../assets/icons/profile.png')}/>
           <View style={styles.subCon}>
             <Text style={styles.name}>{name}</Text>
             <View style={{flexDirection: 'row'}}>
               <Text style={styles.year}>{year}</Text>
-              <Text style={styles.school}>{school_name? school_name: ''}</Text>
+              <Text style={styles.school}>{school_name}</Text>
             </View>
           </View>
         </View>
@@ -63,6 +68,7 @@ const styles = ScaledSheet.create({
     borderBottomColor: '#FE5F55',
     borderBottomWidth: '2@ms',
     flexDirection: 'row',
+    flex: 1,
   },
   name: {
     fontSize: '20@ms',
@@ -82,6 +88,11 @@ const styles = ScaledSheet.create({
     fontSize: '25@ms',
     color: 'dimgrey',
   },
+  img: {
+    width: '40@ms',
+    height: '40@ms',
+    alignSelf: 'center',
+  }
 })
 
 export {SearchContactCard};

@@ -79,4 +79,19 @@ export const FETCH_MEMBER_ALERT = 'fetch_member_alert'
 export const FETCH_TOP_CLIQ_ALERT = 'fetch_top_cliq_alert'
 export const FETCH_ALERT_ERROR = 'fetch_alert_error'
 
+export const ALERT_ERROR = 'alert_error'
+export const ALERT_HANDLED = 'alert_handled'
+
+export const FETCH_BLOCKED_USERS = 'fetch_blocked_users'
+export const FETCH_BLOCKED_ERROR = 'fetch_blocked_error'
+
+export const BLOCK_USER = 'block_user'
+export const BLOCK_USER_ERROR = 'block_user_error'
+
+export const REPORT_USER = 'report_user'
+export const REPORT_ERROR = 'report_error'
+
+export const INVITE_USER = 'invite_user'
+export const INVITE_USER_FAIL = 'invite_user_fail'
+
 //space

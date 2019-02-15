@@ -1,5 +1,12 @@
 import {
-
+  FETCH_SELF,
+  FETCH_SELF_FAILED,
+  FETCH_BLOCKED_USERS,
+  FETCH_BLOCKED_ERROR,
+  BLOCK_USER,
+  BLOCK_USER_ERROR,
+  REPORT_USER,
+  REPORT_ERROR,
 } from './types'
 import firebase from 'react-native-firesbase'
 import moment from 'moment'
@@ -23,17 +30,17 @@ export const fetchBlockedUsers = () => {
       firebase.firestore().collection('users').doc(user.uid)
       .collection('blocked_users').get().then((querySnap) => {
         if (querySnap.empty) {
-          dispatch({ })
+          dispatch({ type: FETCH_BLOCKED_USERS, payload: [] })
         }
         let blockedUsers = []
         querySnap.forEach((doc) => {
           var blockedUser = doc.data()
           blockedUsers.push(blockedUser)
-          dispatch({ payload: blockedUsers })
+          dispatch({ type: FETCH_BLOCKED_USERS, payload: blockedUsers })
         })
       })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: FETCH_BLOCKED_ERROR })
     }
   }
 }
@@ -54,30 +61,52 @@ export const fetchSelf = () => {
   }
 }
 
-export const blockUser = (userId, userInfo) => {
+export const reportUser = (reportReason, userReportted, details) => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
     try {
-      firebase.firestore().collection('users').doc(user.uid)
-      .collection('blocked_users').doc(userId).set(userInfo)
-      .then(() => {
-        dispatch({ })
+      firebase.firestore().collection('reports')
+      .add({
+        user: userReportted,
+        reason: reportReason,
+        details: details,
+      }).then(() => {
+        dispatch({ type: REPORT_USER })
       }).catch((err) => {
-        dispatch({ })
+        dispatch({ type: REPORT_ERROR })
       })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: REPORT_ERROR })
     }
   }
 }
 
-export const funcName = () => {
+export const blockUser = (blockedUser, reason) => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
-    try {
+    const { name, id, } = blockedUser
 
+    try {
+      firebase.firestore().collection('users')
+      .doc(blockedUser.id).collection('blocked_by')
+      .add({
+        id: user.uid,
+      }).catch((err) => {
+        dispatch({ type: BLOCK_USER_ERROR })
+      })
+
+      firebase.firestore().collection('users')
+      .doc(user.uid).collection('blocked_users')
+      .add({
+        name: blockedUser.name,
+        id: blockedUser.id,
+      }).then(() => {
+        dispatch({ type: BLOCK_USER })
+      }).catch((err) => {
+        dispatch({ type: BLOCK_USER_ERROR })
+      })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: BLOCK_USER_ERROR })
     }
   }
 }

@@ -6,62 +6,97 @@ import {
   FETCH_MEMBER_ALERT,
   FETCH_TOP_CLIQ_ALERT,
   FETCH_ALERT_ERROR,
+  ALERT_ERROR,
+  ALERT_HANDLE,
+  INVITE_USER,
+  INVITE_USER_FAIL,
 } from './types'
 import firebase from 'react-native-firesbase'
 import moment from 'moment'
 var _ - require('lodash')
 
 
-export const fetchRepliesAlert = () => {
+export const fetchMessageAlerts = () => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
     try {
-      firebase.collection('users').doc(user.uid).collection('user_posts')
-      .doc('{postId}').collection('post_replies')
-      .onSnapshot((querySnapshot) => {
-        if (querySnap.empty) {
-          dispatch({ })
-        }
-        let alerts = []
-        querySnapshot.forEach((doc) => {
-          var alert = doc.data()
-          if (alert.seen) {
-            alerts.push(alert)
-            dispatch({ payload: alerts })
-          }
+      firebase.firestore().collection('users')
+      .doc(user.uid).get().then((doc) => {
+        let cliqs = doc.data().cliq
+        cliqs.forEach((c) => {
+          let id = c.id
+
+          firebase.firestore().collection('users')
+          .doc(user.uid).collection('new_comment_alert')
+          .doc(cliqId).collection('messages')
+          .where("hasBeenRead", "==", false)
+          .onSnapshot((querySnapshot) => {
+            if (querySnap.empty) {
+              dispatch({ type: FETCH_COMMENT_ALERT, payload: {} })
+            }
+            let alerts = []
+            querySnapshot.forEach((doc) => {
+              var alert = doc.data()
+              if (alert.seen) {
+                alerts.push(alert)
+                dispatch({ type: FETCH_COMMENT_ALERT, payload: alerts })
+              }
+            })
+          }, (err) => {
+            dispatch({ type: FETCH_ALERT_ERROR, payload: err })
+          })
         })
-      }, (err) => {
-        dispatch({ })
       })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: FETCH_ALERT_ERROR, payload: err })
     }
   }
 }
 
-export const fetchNewUserAlert = () => {
+export const commentSeen = (alertId) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+
+    try {
+      firebase.firestore().collection('users')
+      .doc(user.uid).collection('new_follower_alerts')
+      .doc(alertId).update({
+        hasBeenRead: true,
+      }).catch((err) => {
+        dispatch({ type: ALERT_ERROR, payload: err })
+      }).then(() => {
+        dispatch({ type: ALERT_HANDLED })
+      })
+    } catch(err) {
+      dispatch({ type: FETCH_ALERT_ERROR, payload: err })
+    }
+  }
+}
+
+export const fetchLikeAlerts = () => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
     try {
-      firebase.collection('users').doc(user.uid).collection('cliqs')
-      .doc('{cliqId}').collection('post_replies')
+      firebase.collection('users').doc(user.uid)
+      .collection('like_alerts')
+      .where("hasBeenRead", "==", )
       .onSnapshot((querySnapshot) => {
         if (querySnap.empty) {
-          dispatch({ })
+          dispatch({ tpye: FETCH_LIKE_ALERT, paylaod: [] })
         }
         let alerts = []
         querySnapshot.forEach((doc) => {
           var alert = doc.data()
           if (alert.seen) {
             alerts.push(alert)
-            dispatch({ payload: alerts })
+            dispatch({ type: FETCH_LIKE_ALERT, payload: alerts })
           }
         })
       }, (err) => {
-        dispatch({ })
+        dispatch({ type: FETCH_ALERT_ERROR, payload: err })
       })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: FETCH_ALERT_ERROR, payload: err })
     }
   }
 }
@@ -70,25 +105,47 @@ export const fetchNewFollowerAlert = (cliqId) => {
   return (dispatch) => {
     const user = firebase.auth().currentUser
     try {
-      firebase.collection('cliqs').doc(cliqId).collection('cliq_followers')
+      firebase.collection('users').doc(user.uid)
+      .collection('new_follower_alerts')
       .onSnapshot((querySnapshot) => {
         if (querySnap.empty) {
-          dispatch({ })
+          dispatch({ type: FETCH_FOLLOWER_ALERT, payload: [] })
         }
+
         let followers = []
         querySnapshot.forEach((doc) => {
           var newb = doc.data()
           if (newb.seen) {
             followers.push(newb)
             alertInfo = {alertType: 'new_follower', followers: followers }
-            dispatch({ payload: alertInfo })
+            dispatch({ type: FETCH_FOLLOWER_ALERT, payload: alertInfo })
           }
         })
       }, (err) => {
-        dispatch({ })
+        dispatch({ type: FETCH_ALERT_ERROR, payload: err })
       })
     } catch(err) {
-      dispatch({ })
+      dispatch({ type: FETCH_ALERT_ERROR, payload: err })
+    }
+  }
+}
+
+export const newFollowerSeen = (alertId) => {
+  return (dispatch) => {
+    const user = firebase.auth().currentUser
+
+    try {
+      firebase.firestore().collection('users')
+      .doc(user.uid).collection('new_follower_alerts')
+      .doc(alertId).update({
+        hasBeenRead: true,
+      }).catch((err) => {
+        dispatch({ type: ALERT_ERROR, payload: err })
+      }).then(() => {
+        dispatch({ type: ALERT_HANDLED })
+      })
+    } catch(err) {
+      dispatch({ type: FETCH_ALERT_ERROR, payload: err })
     }
   }
 }
@@ -120,26 +177,44 @@ export const fetchUploadAlert = (cliqId) => {
   }
 }
 
-export const tagViewedAlerts = () => {
+export const inviteNewMember = (invitee, inviter, cliqInfo) => {
   return (dispatch) => {
+    const { cliqId, cliqName } = cliqInfo
     const user = firebase.auth().currentUser
+    let info = `You've been invited to join ${cliqName}`
+
     try {
-      const repliesRef = firebase.firstore().collection('users').doc(user.uid)
-      .collection('user_posts').doc('{postId}')
-      .collection('post_replies')
+      firebase.firestore().collection('users')
+      .doc(invitee).collection('invite_alerts')
+      .add({
+        hasBeenRead: false,
+        invitedBy: inviter,
+        info: info,
+        cliq: cliqId,
+        cliqName: cliqName
+      }).catch((err) => {
+        dispatch({ type: INVITE_USER_FAIL, payload: err })
+      }).then(() => {
+        dispatch({ type: INVITE_USER })
+      })
+    } catch(err) {
+      dispatch({ type: INVITE_USER_FAIL, payload: err })
+    }
+  }
+}
 
-      repliesref.where("seen", "==", false)
-      .get().then((querySnap) => {
-        if (querySnap.empty) {
-          Actions.profile({ profileId: id })
-          dispatch({ })
-        }
+export const joinCliq = (cliqInfo) => {
+  return (dispatch) => {
+    const { cliqId } = cliqInfo
+    const user = firebase.auth().currentUser
 
-        querySnap.forEach((doc) => {
-          repliesRef.update({
-            seen: true,
-          }).catch((err) => dispatch({ }))
-        })
+    try {
+      firebase.firestore().collection('user')
+      .doc(invitee).collection('invite_alerts')
+      .add({
+        hasBeenRead: false,
+        info: info,
+        cliq: cliqId,
       })
     } catch(err) {
       dispatch({ })
@@ -147,25 +222,17 @@ export const tagViewedAlerts = () => {
   }
 }
 
-export const fetchBlockedUsers = () => {
-  return (dispatch) => {
-    const user = firebase.auth().currentUser
-    try {
-      firebase.firestore().collection('users').doc(user.uid)
-      .collection('blocked_users').get().then((querySnap) => {
-        if (querySnap.empty) {
-          dispatch({ })
-        }
-        let blockedUsers = []
-        querySnap.forEach((doc) => {
-          var blockedUser = doc.data()
-          blockedUsers.push(blockedUser)
-          dispatch({ payload: blockedUsers })
-        })
-      })
-    } catch(err) {
-      dispatch({ })
-    }
+export const alertRead = (ref) => {
+  try {
+    ref.update({
+      hasBeenRead: true
+    }).catch((err) => {
+      dispatch({ type: ALERT_ERROR, payload: err })
+    }).then(() => {
+      dispatch({ type: ALERT_HANDLED })
+    })
+  } catch(err) {
+    dispatch({ type: ALERT_ERROR, payload: err })
   }
 }
 

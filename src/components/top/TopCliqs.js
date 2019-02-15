@@ -19,7 +19,7 @@ import {
 import {
   Block,
 } from '../containers'
-import { FooterBtn } from '../buttons';
+import { FooterBtn, CreateBtn } from '../buttons';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
@@ -42,6 +42,7 @@ class TopCliqs extends Component {
           <Block />
           <Block />
         </ScrollView>
+        <CreateBtn />
       </View>
     )
   }
