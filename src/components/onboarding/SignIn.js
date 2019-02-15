@@ -15,7 +15,7 @@ import {
   TitleInput,
 } from '../containers'
 import { Actions } from 'react-native-router-flux';
-import { loginUser } from '../../actions';
+import { loginUser, autoCompleteSchools } from '../../actions';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 
@@ -170,12 +170,13 @@ const styles = ScaledSheet.create({
 })
 
 const mapStateToProps = state => {
-  const { user, loading } = state.auth;
+  const { user, loading, schools } = state.auth;
 
   return {
     user,
     loading,
+    schools,
   }
 }
 
-export default connect(mapStateToProps, {loginUser})(SignIn);
+export default connect(mapStateToProps, {loginUser, autoCompleteSchools})(SignIn);

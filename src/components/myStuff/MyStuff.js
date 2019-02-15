@@ -17,7 +17,9 @@ import {
   CliqsCard
 } from '../containers';
 import { FooterBtn, CreateBtn, } from '../buttons';
-import { ProfileCameraModal } from '../modals';
+import {
+  ProfileCameraModal,
+} from '../modals'
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
@@ -34,6 +36,8 @@ class MyStuff extends Component {
       noCliqs: false,
       noUploads: false,
       showPicModal: false,
+      createPost: false,
+      createCliq: false,
     }
   }
 
@@ -173,7 +177,7 @@ class MyStuff extends Component {
       )
     }
   }
-
+  
   render() {
     return (
       <View style={generalStyles.container}>

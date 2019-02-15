@@ -9,3 +9,4 @@ export * from './Block';
 export * from './CliqmateCard';
 export * from './TitleInput';
 export * from './AlertCard';
+export * from './AutoCompleteInput';

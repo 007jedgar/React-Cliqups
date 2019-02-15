@@ -192,10 +192,28 @@ exports.rankPosts = functions.firestore
 
 })
 
+////////////////
+//                  SEARCH INDEX FUNCTIONS
+////////////////
 
-////////////////
-//                  SEARCH FUNCTIONS
-////////////////
+exports.indexCliq = functions.firestore
+.document('cliqs/{cliqId}').onCreate((snap, context) => {
+  const data = snap.data()
+  const objectID = snap.id
+
+  return cliq_index.addObject({
+    objectID,
+    data
+  })
+})
+
+exports.deleteCliq = functions.firestore
+  .document('cliqs/{cliqId}')
+  .onDelete((snap, context) => {
+    const objectID = snap.id
+
+    return cliq_index.deleteObject(objectID)
+})
 
 exports.indexUser = functions.firestore
 .document('users/{userId}').onCreate((snap, context) => {

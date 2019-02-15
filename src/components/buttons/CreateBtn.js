@@ -7,14 +7,19 @@ import {
   StyleSheet,
 } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
-
+import {
+  CreateCliqModal,
+  CreatePostModal,
+} from '../modals'
 
 class CreateBtn extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      icon: require('../../../assets/icons/add.png')
+      icon: require('../../../assets/icons/add.png'),
+      createCliq: false,
+      createPost: false,
     }
   }
 
@@ -27,11 +32,33 @@ class CreateBtn extends Component {
   }
 
   onCliqPressed = () => {
-
+    this.setState({ createCliq: true })
   }
 
   onPostPressed = () => {
+    this.setState({ createPost: true })
+  }
 
+  renderCliqModal() {
+    if (this.state.createCliq) {
+      return (
+        <CreateCliqModal
+          visible={this.state.createCliq}
+          closeModal={() => this.setState({ createCliq: false })}
+        />
+      )
+    }
+  }
+
+  renderPostModal() {
+    if (this.state.createPost) {
+      return (
+        <CreatePostModal
+          closeModal={() => this.setState({ createPost: false })}
+          visible={this.state.createPost}
+        />
+      )
+    }
   }
 
   renderOptions() {
@@ -61,6 +88,8 @@ class CreateBtn extends Component {
           style={iconStyle}
           source={this.state.icon}
         />
+        {this.renderCliqModal()}
+        {this.renderPostModal()}
       </TouchableOpacity>
     )
   }

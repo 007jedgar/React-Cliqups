@@ -94,4 +94,10 @@ export const REPORT_ERROR = 'report_error'
 export const INVITE_USER = 'invite_user'
 export const INVITE_USER_FAIL = 'invite_user_fail'
 
+export const COMPLETE_SCHOOLS = 'complete_schools'
+export const COMPLETE_SCHOOLS_FAIL = 'complete_schools_fail'
+
+export const COMPLETE_SEARCH = 'complete_search'
+export const COMPLETE_SEARCH_FAIL = 'complete_search_fail'
+
 //space
