@@ -14,6 +14,9 @@ var _ = require('lodash');
 import {
   TitleInput,
 } from '../containers'
+import {
+  SignupModal,
+} from '../modals'
 import { Actions } from 'react-native-router-flux';
 import { loginUser, autoCompleteSchools } from '../../actions';
 import { connect } from 'react-redux';
@@ -30,6 +33,7 @@ class SignIn extends Component {
       password: '',
       loading: this.props.loading,
       name: '',
+      signupMenu: false,
     }
   }
 
@@ -39,8 +43,12 @@ class SignIn extends Component {
   }
 
   handleSignup = () => {
-
+    this.setState({ signupMenu: !this.state.signupMenu })
   }
+
+  onAutoComplete = () => {
+    this.props.autoCompleteSchools()
+  } 
 
   changeUser(value) {
     this.setState({ userForm: value })
@@ -66,6 +74,18 @@ class SignIn extends Component {
           <Spinner color={{backgroundColor: '#fff'}}/>
         </View>
       );
+    }
+  }
+
+  renderModal() {
+    if (this.state.signupMenu) {
+      return (
+        <SignupModal
+          visible={this.state.signupMenu}
+          closeModal={() => this.setState({ signupMenu: !this.state.signupMenu })}
+          onTyped={this.onAutoComplete}
+        />
+      )
     }
   }
 
@@ -127,6 +147,7 @@ class SignIn extends Component {
             <Text style={styles.signupText}>Sign up</Text>
           </TouchableOpacity>
         </View>
+        {this.renderModal()}
       </View>
     )
   }

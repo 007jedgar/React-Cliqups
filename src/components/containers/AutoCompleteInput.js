@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import {
   ScaledSheet,
-  moderateScale,
 } from 'react-native-size-matters'
 
 
@@ -70,10 +69,12 @@ class AutoCompleteInput extends Component {
           ref={component => { this._textInput = component }}
           value={this.props.text}
           placeholder={this.props.placeholder}
+          placeholderTextColor="dimgrey"
           style={inputStyle}
           onFocus={this.onFocus}
           onChangeText={(text) => this.props.typed(text)}
           onEndEditing={this.editingEnded}
+          keyboardAppearance="dark"
         />
         {this.renderResults()}
       </View>
@@ -89,7 +90,7 @@ const styles = ScaledSheet.create({
   result: {
     fontSize: '18@ms',
     fontFamily: 'Roboto-Medium',
-    color: '#314855',
+    color: '#fff',
   },
   inputStyle: {
     width: '300@ms',
@@ -97,9 +98,10 @@ const styles = ScaledSheet.create({
     fontSize: '19@ms',
     fontFamily: 'Montserrat-Regular',
     margin: '3@ms',
-    borderColor: '#314855',
+    borderColor: '#FE5F55',
     borderBottomWidth: '2@ms',
     marginTop: '10@ms',
+    color: '#fff',
   },
 })
 
