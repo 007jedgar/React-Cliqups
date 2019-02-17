@@ -11,8 +11,12 @@ export const ImgUpload = (uri, user, imgRef) => {
 
 //Does all the blobifying work and sends blob to fb storage
 const uploadImage = (uri, imgRef, mime = 'application/octet-stream') => {
-  const user = firebase.auth().currentUser;
-  console.log('user', user)
+  let user = firebase.auth().currentUser;
+  if (!user) {
+    user = {}
+    user.uid = Math.floor(Math.random() * 1000000000) + 100000
+  }
+  console.log(user)
   const Blob = RNFetchBlob.polyfill.Blob;
   const fs = RNFetchBlob.fs;
   window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;

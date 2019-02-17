@@ -63,9 +63,10 @@ class Search extends Component {
               school_id={item.school_id}
               year={item.year}
               pic={item.profile_pic}
+              picture={item.picture}
             />
           }
-          keyExtractor={ item => item.phone.toString()}
+          keyExtractor={ item => item.id.toString()}
           extraData={this.state.classmates}
         />
       )

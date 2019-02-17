@@ -38,11 +38,11 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const user = 'ryanrickert@gmail.com'
-    password = 'password'
+    // const user = 'ryanrickert@gmail.com'
+    // password = 'password'
     // this.props.loginUser(user, password)
-    const auth = [ user, password]
-    console.log('hello profile', auth)
+    // const auth = [ user, password]
+    // console.log('hello profile', auth)
   }
 
   saveImg(data, caseId) {
@@ -103,16 +103,8 @@ class Profile extends Component {
   //testing purposes  only
   signOut() {
     firebase.auth().signOut().then(() => {
-      Actions.welcome()
+      Actions.signin()
     })
-  }
-
-  signIn() {
-    const email = "007j.edgar@gmail.com"
-    const password = 'password'
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-      Alert.alert('not signed in')
-    });
   }
 
   newCliq() {

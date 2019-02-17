@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 import {
   ScaledSheet, moderateScale, scale, verticalScale,
@@ -18,10 +19,9 @@ import {
   SignupModal,
 } from '../modals'
 import { Actions } from 'react-native-router-flux';
-import { loginUser, autoCompleteSchools } from '../../actions';
+import { loginUser, autoCompleteSchools, signup } from '../../actions';
 import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
-
 
 //Signin View
 class SignIn extends Component {
@@ -48,7 +48,7 @@ class SignIn extends Component {
 
   onAutoComplete = () => {
     this.props.autoCompleteSchools()
-  } 
+  }
 
   changeUser(value) {
     this.setState({ userForm: value })
@@ -56,13 +56,43 @@ class SignIn extends Component {
 
   componentDidMount() {
     this.checkAuth()
+    this.checkPermission()
+  }
+
+  async checkPermission() {
+    const enabled = await firebase.messaging().hasPermission()
+
+    if (enabled) {
+        this.getToken()
+    } else {
+        this.requestPermission()
+    }
+  }
+
+  async getToken() {
+    let fcmToken = await AsyncStorage.getItem('fcmToken');
+    if (!fcmToken) {
+        fcmToken = await firebase.messaging().getToken();
+        if (fcmToken) {
+            await AsyncStorage.setItem('fcmToken', fcmToken);
+        }
+    }
+  }
+
+  async requestPermission() {
+    try {
+        await firebase.messaging().requestPermission();
+        this.getToken()
+    } catch (error) {
+      console.log('permission rejected')
+    }
   }
 
   checkAuth() {
     this.setState({ loading: true })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        //do stuff
+        Actions.profile()
       }
     })
   }
@@ -84,6 +114,7 @@ class SignIn extends Component {
           visible={this.state.signupMenu}
           closeModal={() => this.setState({ signupMenu: !this.state.signupMenu })}
           onTyped={this.onAutoComplete}
+          signup={(student) => this.props.signup(student)}
         />
       )
     }
@@ -200,4 +231,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {loginUser, autoCompleteSchools})(SignIn);
+export default connect(mapStateToProps, {loginUser, autoCompleteSchools, signup})(SignIn);

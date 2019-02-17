@@ -201,11 +201,13 @@ export const fetchUsers = () => {
             console.log('empty')
             dispatch({ type: FETCH_USERS, payload: users })
           }
+
           querySnap.forEach((doc) => {
-            console.log('users', doc.data())
-            users.push(doc.data())
-            dispatch({ type: FETCH_USERS_SUCCESS, payload: users })
+            let user = doc.data()
+            user.id = doc.id
+            users.push(user)
           })
+          dispatch({ type: FETCH_USERS_SUCCESS, payload: users })
         })
     } catch(err) {
       console.log('err', err)
@@ -219,8 +221,31 @@ export const instagramAuth = () => {
     const user = firebase.auth().currentUser
     try {
 
+
     } catch(err) {
       dispatch({ })
     }
+  }
+}
+
+export const signup = (students) => {
+  const { email, password, apn_token, name, school, year, dob, picture } = students
+  return (dispatch) => {
+    firebase.auth()
+    .createUserAndRetrieveDataWithEmailAndPassword(email, password)
+    .then((user) => {
+      console.log(user)
+
+      firebase.firestore().collection('users')
+      .doc(user.uid).set({
+        email: email,
+        name: name,
+        apn_token: apn_token,
+        school: school,
+        dob: dob,
+        year: year,
+        picture: picture,
+      })
+    })
   }
 }

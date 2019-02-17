@@ -23,7 +23,7 @@ class SearchContactCard extends Component {
   }
 
   componentDidMount() {
-    this.fetchSchool()
+    // this.fetchSchool()
   }
 
   pressed() {
@@ -44,11 +44,13 @@ class SearchContactCard extends Component {
     school_name = school_name? school_name : '';
     school_name = school_name.replace('High School', 'HS')
     school_name = school_name.replace('Prepatory', 'Prep')
+    let pic = this.props.picture? {uri: this.props.picture} : require('../../../assets/icons/profile.png')
+    let picStyle = this.props.picture? {borderRadius: moderateScale(20)}: {};
 
     return (
       <TouchableOpacity onPress={() => this.pressed()}>
         <View style={styles.container}>
-          <Image style={styles.img} source={require('../../../assets/icons/profile.png')}/>
+          <Image style={[styles.img, picStyle]} source={pic}/>
           <View style={styles.subCon}>
             <Text style={styles.name}>{name}</Text>
             <View style={{flexDirection: 'row'}}>

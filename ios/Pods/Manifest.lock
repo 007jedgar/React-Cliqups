@@ -195,6 +195,9 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNFirebase (4.3.8):
+    - Firebase/Core
+    - React
   - yoga (0.56.0.React)
 
 DEPENDENCIES:
@@ -223,6 +226,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -265,6 +269,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  RNFirebase:
+    :path: "../node_modules/react-native-firebase/ios"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -298,8 +304,9 @@ SPEC CHECKSUMS:
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-camera: ab22041dcf0403d88f2ae4b9ea3ed2644e680423
   react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
+  RNFirebase: 2b25fd2e60269f26bb0a76c71dcc942b35a77df0
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: cd7b7062b5cb4c20afec28a70af448935be0de01
+PODFILE CHECKSUM: 4c9e7dfda364a76c846cfed1be1e13b881fc15f2
 
 COCOAPODS: 1.5.2
